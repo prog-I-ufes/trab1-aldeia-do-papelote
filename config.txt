@@ -1,0 +1,2 @@
+/training/dados_entrada_treino.csv
+/tests/dados_entrada_teste.csv
