@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// ALOCA UMA MATRIZ DINAMICAMENTE
 int **createMatrix(TDimension dim){
 	int i = 0;
 	int **mat = (int**) malloc(sizeof(int) * dim.x);
@@ -12,14 +13,14 @@ int **createMatrix(TDimension dim){
 
 	return mat;
 }
-
+// LIBERA UMA MATRIZ DA MEMORIA
 void freeMatrix(int **mat, TDimension dim){
 	int i = 0;
 	for( i = 0 ; i < dim.x ; i++ )
 		free(mat[i]);
 	free(mat);
 }
-
+// IMPRIME A MATRIZ NA TELA
 void printMatrix(int **mat, TDimension dim){
 	int i = 0;
 	int j = 0;
