@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// ABRE UM ARQUIVO DE ACORDO COM O MODO
 FILE* openFile(char* name, char mode){
 	switch( mode ){
 		case 'w':
@@ -14,5 +15,5 @@ FILE* openFile(char* name, char mode){
 		break;
 	}
 }
-
+// FECHA UM ARQUIVO
 void closeFile(FILE* f){ fclose(f); }
