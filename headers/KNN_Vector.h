@@ -1,6 +1,7 @@
-int* Create_I_Vector(int length);
-void Free_I_Vector(int* v);
-int* Sum_I_Vector(int *v, int *w);
-int* Subtract_I_Vector(int *v, int *w);
-int* Product_I_Vector(int *v, int *w);
-void Square_I_Vector(int *v);
+int* create_I_Vector(int length);
+void free_I_Vector(int* v);
+int* sum_I_Vector(int *v, int *w, int len);
+int* subtract_I_Vector(int *v, int *w, int len);
+int* product_I_Vector(int *v, int *w, int len);
+int* square_I_Vector(int *v, int len);
+void print_Vector(int *v, int len);
