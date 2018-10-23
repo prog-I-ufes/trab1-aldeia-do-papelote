@@ -12,3 +12,5 @@ int* product_I_Vector(int *v, int *w, int len);
 int* square_I_Vector(int *v, int len);
 // IMPRIME O VETOR NA TELA
 void print_Vector(int *v, int len);
+// SOMATÓRIO DOS ELEMENTOS DO VETOR DE INTEIROS
+int sum_Elements_I_Vector(int *v, int len);

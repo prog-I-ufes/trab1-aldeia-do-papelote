@@ -47,3 +47,14 @@ void print_Vector(int *v, int len){
 	for( i = 0 ; i < len ; i++ )
 		printf("[%d]\n", v[i]);
 }
+// SOMATÓRIO DOS ELEMENTOS DO VETOR DE INTEIROS
+int sum_Elements_I_Vector(int *v, int len){
+	int i = 0;
+	int sum = 0;
+
+	for( i = 0 ; i < len ; i++ ){
+		sum += v[i];
+	}
+
+	return sum;
+}
