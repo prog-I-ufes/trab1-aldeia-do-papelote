@@ -10,6 +10,10 @@ int* subtract_I_Vector(int *v, int *w, int len);
 int* product_I_Vector(int *v, int *w, int len);
 // CRIA UM VETOR QUE É O QUADRADO DE V
 int* square_I_Vector(int *v, int len);
+// CRIA UM VETOR QUE É OS ELEMENTOS DE V ELEVADOS A N
+int* pow_I_Vector(int *v, int len, int n);
+// CRIA UM VETOR QUE É O VALOR ABSOLUTO DOS ELEMENTOS
+int* abs_I_Vector(int *v, int len);
 // IMPRIME O VETOR NA TELA
 void print_Vector(int *v, int len);
 // SOMATÓRIO DOS ELEMENTOS DO VETOR DE INTEIROS

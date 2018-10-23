@@ -1,6 +1,7 @@
 #include "../headers/KNN_Vector.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 // ALOCA UM VETOR DINAMICAMENTE
 int* create_I_Vector(int length){
@@ -41,6 +42,24 @@ int* square_I_Vector(int *v, int len){
 		w[i] = v[i] * v[i];
 	return w;
 }
+// CRIA UM VETOR QUE É OS ELEMENTOS DE V ELEVADOS A N
+int* pow_I_Vector(int *v, int len, int n){
+	int i = 0;
+	int *w = create_I_Vector(len);
+	for( i = 0 ; i < len ; i++ )
+		w[i] = pow(v[i], n);
+
+	return w;
+}
+// CRIA UM VETOR QUE É O VALOR ABSOLUTO DOS ELEMENTOS
+int* abs_I_Vector(int *v, int len){
+	int i = 0;
+	int *w = create_I_Vector(len);
+	for( i = 0 ; i < len ; i++ )
+		w[i] = fabs(v[i]);
+
+	return w;
+}
 // IMPRIME O VETOR NA TELA
 void print_Vector(int *v, int len){
 	int i = 0;
@@ -51,10 +70,8 @@ void print_Vector(int *v, int len){
 int sum_Elements_I_Vector(int *v, int len){
 	int i = 0;
 	int sum = 0;
-
-	for( i = 0 ; i < len ; i++ ){
+	for( i = 0 ; i < len ; i++ )
 		sum += v[i];
-	}
 
 	return sum;
 }
