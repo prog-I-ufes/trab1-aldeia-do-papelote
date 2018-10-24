@@ -27,12 +27,12 @@ int* subtract_I_Vector(int *v, int *w, int len){
 	return z;	
 }
 // PRODUTO INTERNO ENTRE O VETOR V E O VETOR W
-int* product_I_Vector(int *v, int *w, int len){
+int product_I_Vector(int *v, int *w, int len){
 	int i = 0;
-	int *z = create_I_Vector(len);
+	int product = 0;
 	for( i = 0 ; i < len ; i++ )
-		z[i] = v[i] * w[i];
-	return z;
+		product += v[i] * w[i];
+	return product;
 }
 // CRIA UM VETOR QUE E O QUADRADO DE V
 int* square_I_Vector(int *v, int len){
