@@ -2,7 +2,7 @@
 #include <math.h>
 
 // CALCULA A DISTANCIA EUCLIDIANA
-float EuclidianDistance(int *v, int *w, int len){
+float euclidianDistance(int *v, int *w, int len){
 	int i = 0;
 	int *z;
 	int *z_square;
@@ -21,7 +21,7 @@ float EuclidianDistance(int *v, int *w, int len){
 	return distance;
 }
 // CALCULA A DISTANCIA DE MINKOWSKY
-float MinkowskyDistance(int *v, int *w, int len, int r){
+float minkowskyDistance(int *v, int *w, int len, int r){
 	int i = 0;
 	int *z;
 	int *z_aux;
@@ -37,7 +37,7 @@ float MinkowskyDistance(int *v, int *w, int len, int r){
 
 	free_I_Vector(z_aux);
 
-	distance = pow(sum_Elements_I_Vector(z ,1.0/r);
+	distance = pow(sum_Elements_I_Vector(z ,1.0/r));
 
 	free_I_Vector(z);
 
@@ -45,6 +45,11 @@ float MinkowskyDistance(int *v, int *w, int len, int r){
 }
 // CALCULA A DISTANCIA PELA SIMILARIDADE DOS COSSENOS
 float cosinesDistance(int *v, int *w, int len){
+	float distance = 0;
+	float de = euclidianDistance(v, w, len);
 
+	distance = product_I_Vector(v, w, len);
+	distance /= de;
+
+	return distance;
 }
-
