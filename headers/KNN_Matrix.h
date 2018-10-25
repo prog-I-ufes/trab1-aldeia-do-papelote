@@ -1,3 +1,6 @@
+#ifndef _H_MATRIX
+#define _H_MATRIX
+
 #include "KNN_Dimension.h"
 
 // ALOCA UMA MATRIZ DINAMICAMENTE
@@ -6,3 +9,5 @@ int **createMatrix(TDimension dim);
 void freeMatrix(int **mat, TDimension dim);
 // IMPRIME A MATRIZ NA TELA
 void printMatrix(int **mat, TDimension dim);
+
+#endif

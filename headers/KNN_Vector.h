@@ -1,3 +1,6 @@
+#ifndef _H_VECTOR
+#define _H_VECTOR
+
 // ALOCA UM VETOR DINAMICAMENTE
 int* create_I_Vector(int length);
 // LIBERA UM VETOR DA MEMORIA
@@ -18,3 +21,5 @@ int* abs_I_Vector(int *v, int len);
 void print_Vector(int *v, int len);
 // SOMATÓRIO DOS ELEMENTOS DO VETOR DE INTEIROS
 int sum_Elements_I_Vector(int *v, int len);
+
+#endif
