@@ -6,4 +6,5 @@ FILE* openFile(char* name, char mode);
 // FECHA UM ARQUIVO
 void closeFile(FILE* f);
 
+
 #endif
