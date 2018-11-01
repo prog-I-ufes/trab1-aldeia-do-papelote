@@ -1,5 +1,6 @@
 #include "../headers/KNN_FileManager.h"
 #include "../headers/KNN_Dimension.h"
+#include "../headers/KNN_Matrix.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -33,10 +34,23 @@ char* readLineFile(FILE* f){
 	return path;
 }
 // LE UM ARQUIVO INTEIRO E ARMAZENA NUM VETOR DE STRINGS
-char** readArq(FILE* f){
-	int n = lineNumberFile(f);
+char** readFileToMatrix(char* path){
+	FILE* file = openFile(path, 'r');
+
+	int n = lineNumberFile(file);
 	int i = 0;
-	char** content;
+	
+	TDimension dim;
+	dim.x = n;
+	dim.y = -1;
+
+	char** content = createCharacterMatrix(dim);
+
+	closeFile(file);
+	file = openFile(path, 'r');
+	omitLines(file, 3);
+
+	return content;
 }
 // MOSTRA O NUMERO DE LINHAS DE UM ARQUIVO
 int lineNumberFile(FILE* f){
@@ -46,4 +60,14 @@ int lineNumberFile(FILE* f){
 		if(character == '\n') number++;
 	}
 	return number;
+}
+// OMITE N LINHAS DA LEITURA DO ARQUIVO
+void omitLines(FILE* f, int n){
+	int i = 0;
+	char* word;
+	for( i = 0 ; i < n ; i++ ){
+		word = readLineFile(f);
+		free(word);
+	}
+
 }

@@ -18,10 +18,10 @@ char **createCharacterMatrix(TDimension dim){
 	int i = 0;
 	char **mat = (char**) malloc(sizeof(char) * dim.x);
 
-	for( i = 0 ; i < dim.y ; i++ ){
-		mat[i] = (char*) malloc(sizeof(char) * dim.y);
-	}
-
+	if(dim.y != -1)
+		for( i = 0 ; i < dim.y ; i++ )
+			mat[i] = (char*) malloc(sizeof(char) * dim.y);
+		
 	return mat;
 }
 // LIBERA UMA MATRIZ DE INTEIROS DA MEMORIA

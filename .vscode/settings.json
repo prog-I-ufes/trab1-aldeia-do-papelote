@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "knn_distance.h": "c",
-        "knn_matrix.h": "c"
+        "knn_matrix.h": "c",
+        "knn_classifiers.h": "c",
+        "knn_dimension.h": "c"
     }
 }

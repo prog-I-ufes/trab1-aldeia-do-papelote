@@ -44,13 +44,3 @@ float minkowskyDistance(int *v, int *w, int len, int r){
 
 	return distance;
 }
-// CALCULA A DISTANCIA PELA SIMILARIDADE DOS COSSENOS
-float cosinesDistance(int *v, int *w, int len){
-	float distance = 0;
-	float de = euclidianDistance(v, w, len);
-
-	distance = product_I_Vector(v, w, len);
-	distance /= de;
-
-	return distance;
-}

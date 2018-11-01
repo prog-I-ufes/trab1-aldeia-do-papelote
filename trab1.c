@@ -16,19 +16,19 @@ int main(void){
     char* test_path;
     char* predicts_path;
 
+    char** training_content;
+    char** test_content;
+
     training_path = readLineFile(config);
     test_path = readLineFile(config);
     predicts_path = readLineFile(config);
 
-    training = openFile(training_path, 'r');
-    test = openFile(test_path, 'r');
-
+    training_content = readFileToMatrix(training_path);
+    test_content = readFileToMatrix(test_path);
+    
     free(training_path);
     free(test_path);
     free(predicts_path);
-
-    closeFile(config);
-    closeFile(training);
 
     return 0;
 }
