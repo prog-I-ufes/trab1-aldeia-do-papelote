@@ -1,4 +1,5 @@
 #include "../headers/KNN_Vector.h"
+#include "../headers/KNN_Distance.h"
 #include <math.h>
 
 // CALCULA A DISTANCIA EUCLIDIANA

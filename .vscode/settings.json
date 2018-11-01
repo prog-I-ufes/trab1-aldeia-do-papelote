@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "knn_distance.h": "c",
+        "knn_matrix.h": "c"
+    }
+}

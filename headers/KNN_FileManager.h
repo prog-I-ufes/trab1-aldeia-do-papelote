@@ -7,6 +7,10 @@
 FILE* openFile(char* name, char mode);
 // FECHA UM ARQUIVO
 void closeFile(FILE* f);
+// LE UMA LINHA DE UM ARQUIVO
+char* readLineFile(FILE* f);
+// LE UM ARQUIVO INTEIRO E ARMAZENA NUMA MATRIZ
 
+// MOSTRA O NUMERO DE LINHAS DE UM ARQUIVO
 
 #endif
