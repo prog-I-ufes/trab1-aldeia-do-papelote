@@ -1,8 +1,8 @@
 all: trab1.c KNN_FileManager.o KNN_Dimension.o KNN_Classifiers.o KNN_Vector.o KNN_Matrix.o KNN_Distance.o
 	gcc trab1.c -o trab1 KNN_FileManager.o KNN_Dimension.o KNN_Classifiers.o KNN_Vector.o KNN_Matrix.o KNN_Distance.o -lm
 
-KNN_FileManager.o: sources/KNN_FileManager.c headers/KNN_FileManager.h
-	gcc -c sources/KNN_FileManager.c headers/KNN_FileManager.h
+KNN_FileManager.o: sources/KNN_FileManager.c headers/KNN_FileManager.h KNN_Dimension.o
+	gcc -c sources/KNN_FileManager.c headers/KNN_FileManager.h KNN_Dimension.o
 
 KNN_Dimension.o: sources/KNN_Dimension.c headers/KNN_Dimension.h
 	gcc -c sources/KNN_Dimension.c headers/KNN_Dimension.h

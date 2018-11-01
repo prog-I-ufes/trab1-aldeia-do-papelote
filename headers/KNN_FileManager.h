@@ -12,5 +12,6 @@ char* readLineFile(FILE* f);
 // LE UM ARQUIVO INTEIRO E ARMAZENA NUMA MATRIZ
 
 // MOSTRA O NUMERO DE LINHAS DE UM ARQUIVO
+int lineNumberFile(FILE* f);
 
 #endif
