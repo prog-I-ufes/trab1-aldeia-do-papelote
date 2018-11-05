@@ -31,7 +31,7 @@ char** create_R_CharacterMatrix(Tcsv_map map){
 	char **mat = (char**) malloc(sizeof(char*) * map.lines);
 
 	for( i = 0 ; i < map.lines; i++ ){
-		mat[i] = (char*) malloc(sizeof(char) * map.length_line[i]);
+		mat[i] = (char*) malloc(sizeof(char) * (map.length_line[i]));
 	}
 
 	return mat;
@@ -70,17 +70,38 @@ float **splitNumbers(Tcsv_data *csv){
 
 	float** numbers = (float**) malloc(sizeof(float*) * csv->map.lines);
 
-	for( i = 0 ; i < csv->map.lines ; i++ ){
-		counter = 0;
+	counter = 0;
 
-		pch[i] = strtok (csv->data[i],",");
-	  	while (pch[i] != NULL){
-  			pch[i] = strtok (NULL, ",");
-			counter++;
-  		}
-		
+	pch[i] = strtok (csv->data[i],",");
+	while (pch[i] != NULL){
+  		pch[i] = strtok (NULL, ",");
+		counter++;
+  	}
+
+	for( i = 0 ; i < csv->map.lines ; i++ ){
 		numbers[i] = (float*) malloc(sizeof(float) * counter);
-				
+
+		//pch[i] = strtok (csv->data[i],",");
+		printf("csv = %s \n", csv->data[i]);
+		//numbers[i][j] = atof(pch[i]);
+		//printf("%s \n", pch[i]);
+		//j++;
+	  	//while (1){
+  		//	pch[i] = strtok (NULL, ",");
+		//	printf("%s ", pch[i]);
+		//	if(pch[i] != NULL)
+		//		numbers[i][j] = atof(pch[i]);
+		//	else break;
+		//	j++;
+		//}
+
+		j = 0;	
+	}
+
+	for( i = 0 ; i < 105 ; i++ ){
+		for( j = 0 ; j < 5 ; j++ ){}
+			//printf("[%.2f]", numbers[i][j]);
+		//printf("\n");
 	}
 
 	return numbers;

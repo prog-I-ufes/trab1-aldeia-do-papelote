@@ -27,7 +27,7 @@ int main(void){
     printf("%s\n", test_path);
     
     training_content = readFileToMatrix(training_path);
-    test_content = readFileToMatrix(test_path);
+    //test_content = readFileToMatrix(test_path);
     
     splitNumbers(training_content);
 
@@ -36,10 +36,10 @@ int main(void){
     free(predicts_path);
 
     freeCharacterMatrix(training_content->data, training_content->map.lines);
-    freeCharacterMatrix(test_content->data, test_content->map.lines);
+    //freeCharacterMatrix(test_content->data, test_content->map.lines);
 
     free(training_content);
-    free(test_content);
+    //free(test_content);
 
     return 0;
 }

@@ -40,7 +40,7 @@ Tcsv_data *readFileToMatrix(char* path){
 	
 	int number = 0;
 	int length = 0;
-	int i = 0;
+	int i = 0, j = 0;
 	char character;
 
 	Tcsv_map map;
@@ -74,19 +74,19 @@ Tcsv_data *readFileToMatrix(char* path){
 	closeFile(f);
 
 	csv->map = map;
-
-	f = openFile(path, 'r');
-
 	csv->data = create_R_CharacterMatrix(csv->map);
 	
+	f = openFile(path, 'r');
+	char palavra[25];
+	for( i = 0 ; i < csv->map.lines ; i++ ){
+		fscanf(f, "%s", palavra);
+		
+		strcpy(csv->data[i], palavra); 
+	}
+
 	closeFile(f);
 
-	f = openFile(path, 'r');
-
-	for( i = 0 ; i < csv->map.lines ; i++ )
-		fscanf(f, "%s", csv->data[i]);
-
-    return csv;
+	return csv;
 }
 // OMITE N LINHAS DA LEITURA DO ARQUIVO
 void omitLines(FILE* f, int n){
