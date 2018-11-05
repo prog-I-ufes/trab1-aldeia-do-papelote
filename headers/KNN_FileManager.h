@@ -12,8 +12,6 @@ void closeFile(FILE* f);
 char* readLineFile(FILE* f);
 // LE UM ARQUIVO INTEIRO E ARMAZENA NUMA MATRIZ
 Tcsv_data* readFileToMatrix(char* f);
-// MOSTRA O NUMERO DE LINHAS DE UM ARQUIVO
-void lineNumberFile(char* path, Tcsv_data *csv);
 // OMITE N LINHAS DA LEITURA DO ARQUIVO
 void omitLines(FILE* f, int n);
 

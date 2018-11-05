@@ -8,11 +8,11 @@ int **createMatrix(TDimension dim);
 // ALOCA UMA MATRIZ DE CHAR DINAMICAMENTE
 char **createCharacterMatrix(TDimension dim);
 // ALOCA UMA MATRIZ DE CHAR COM LINHAS DE TAMANHO VARIADOS
-void create_R_CharacterMatrix(Tcsv_data *mat);
+char **create_R_CharacterMatrix(Tcsv_map map);
 // LIBERA UMA MATRIZ DE INTEIROS DA MEMÓRIA
-void freeMatrix(int **mat, TDimension dim);
+void freeMatrix(int **mat, int lines);
 // LIBERA UMA MATRIZ DE CARACTERES DA MEMORIA
-void freeCharacterMatrix(char** mat, TDimension dim);
+void freeCharacterMatrix(char** mat, int lines);
 // IMPRIME A MATRIZ NA TELA
 void printMatrix(int **mat, TDimension dim);
 

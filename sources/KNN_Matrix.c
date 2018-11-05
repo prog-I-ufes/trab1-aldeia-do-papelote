@@ -5,7 +5,7 @@
 // ALOCA UMA MATRIZ DE INTEIROS DINAMICAMENTE
 int **createMatrix(TDimension dim){
 	int i = 0;
-	int **mat = (int**) malloc(sizeof(int) * dim.x);
+	int **mat = (int**) malloc(sizeof(int*) * dim.x);
 
 	for( i = 0 ; i < dim.x ; i++ ){
 		mat[i] = (int*) malloc(sizeof(int) * dim.y);
@@ -16,7 +16,7 @@ int **createMatrix(TDimension dim){
 // ALOCA UMA MATRIZ DE CARACTERES DINAMICAMENTE
 char **createCharacterMatrix(TDimension dim){
 	int i = 0;
-	char **mat = (char**) malloc(sizeof(char) * dim.x);
+	char **mat = (char**) malloc(sizeof(char*) * dim.x);
 
 	if(dim.y != -1)
 		for( i = 0 ; i < dim.x ; i++ )
@@ -25,25 +25,27 @@ char **createCharacterMatrix(TDimension dim){
 	return mat;
 }
 // ALOCA UMA MATRIZ DE CHAR COM LINHAS DE TAMANHO VARIADOS
-void create_R_CharacterMatrix(Tcsv_data *map){
+char** create_R_CharacterMatrix(Tcsv_map map){
 	int i = 0;
-	map->data = (char**) malloc(sizeof(char) * map->map.lines);
+	char **mat = (char**) malloc(sizeof(char*) * map.lines);
 
-	for( i = 0 ; i < map->map.lines; i++ ){
-		map->data[i] = (char*) malloc(sizeof(char) * map->map.length_line[i]);
+	for( i = 0 ; i < map.lines; i++ ){
+		mat[i] = (char*) malloc(sizeof(char) * map.length_line[i]);
 	}
+
+	return mat;
 }
 // LIBERA UMA MATRIZ DE INTEIROS DA MEMORIA
-void freeMatrix(int **mat, TDimension dim){
+void freeMatrix(int **mat, int lines){
 	int i = 0;
-	for( i = 0 ; i < dim.x ; i++ )
+	for( i = 0 ; i < lines ; i++ )
 		free(mat[i]);
 	free(mat);
 }
 // LIBERA UMA MATRIZ DE CARACTERES DA MEMORIA
-void freeCharacterMatrix(char **mat, TDimension dim){
+void freeCharacterMatrix(char **mat, int lines){
 	int i = 0;
-	for( i = 0 ; i < dim.x ; i++ )
+	for( i = 0 ; i < lines ; i++ )
 		free(mat[i]);
 	free(mat);
 }

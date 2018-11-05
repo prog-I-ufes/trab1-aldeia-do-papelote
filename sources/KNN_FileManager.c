@@ -36,16 +36,8 @@ char* readLineFile(FILE* f){
 }
 // LE UM ARQUIVO INTEIRO E ARMAZENA NUM VETOR DE STRINGS
 Tcsv_data *readFileToMatrix(char* path){
-	FILE* file;
-	Tcsv_data *csv;
-	char character;
+	Tcsv_data *csv = (Tcsv_data*) malloc(sizeof(Tcsv_data));
 	
-	lineNumberFile(path, csv);
-
-    return csv;
-}
-// MOSTRA O NUMERO DE LINHAS DE UM ARQUIVO
-void lineNumberFile(char* path, Tcsv_data *csv){
 	int number = 0;
 	int length = 0;
 	int i = 0;
@@ -85,15 +77,16 @@ void lineNumberFile(char* path, Tcsv_data *csv){
 
 	f = openFile(path, 'r');
 
-	create_R_CharacterMatrix(csv);
-
-	if(f != NULL)
-		for( i = 0 ; csv->map.length_line ; i++ ){
-			fscanf(f, "%[^\n]", csv->data[i]);
-			printf("%s\n", csv->data[i]);
-		}
-
+	csv->data = create_R_CharacterMatrix(csv->map);
+	
 	closeFile(f);
+
+	f = openFile(path, 'r');
+
+	for( i = 0 ; i < csv->map.lines ; i++ )
+		fscanf(f, "%s", csv->data[i]);
+
+    return csv;
 }
 // OMITE N LINHAS DA LEITURA DO ARQUIVO
 void omitLines(FILE* f, int n){
