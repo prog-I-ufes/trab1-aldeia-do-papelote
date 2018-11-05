@@ -16,8 +16,8 @@ int main(void){
     char* test_path;
     char* predicts_path;
 
-    Tcsv_data training_content;
-    Tcsv_data test_content;
+    Tcsv_data* training_content;
+    Tcsv_data* test_content;
 
     training_path = readLineFile(config);
     test_path = readLineFile(config);
@@ -27,7 +27,7 @@ int main(void){
     printf("%s\n", test_path);
     
     training_content = readFileToMatrix(training_path);
-    test_content = readFileToMatrix(test_path);
+    //test_content = readFileToMatrix(test_path);
     
     free(training_path);
     free(test_path);

@@ -1,6 +1,6 @@
 #include "../headers/KNN_FileManager.h"
-#include "../headers/KNN_Dimension.h"
 #include "../headers/KNN_Matrix.h"
+#include "../headers/KNN_Vector.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -35,44 +35,65 @@ char* readLineFile(FILE* f){
 	return path;
 }
 // LE UM ARQUIVO INTEIRO E ARMAZENA NUM VETOR DE STRINGS
-Tcsv_data readFileToMatrix(char* path){
-	FILE* file = openFile(path, 'r');
-	int i = 0;
-	Tcsv_data csv;
+Tcsv_data *readFileToMatrix(char* path){
+	FILE* file;
+	Tcsv_data *csv;
+	char character;
+	
+	lineNumberFile(path, csv);
 
-	if(file != NULL){
-
-		csv.lines = lineNumberFile(file);
-		closeFile(file);
-
-		TDimension dim;
-		dim.x = csv.lines;
-		dim.y = -1;
-
-		csv.data = createCharacterMatrix(dim);
-
-		file = openFile(path, 'w');
-
-		for( i = 0 ; i < csv.lines ; i++ ){
-		//	fscanf(file, "%s", csv.data[i]);
-		//	printf("%s", csv.data[i]);
-		}
-
-	}
-
-	closeFile(file);
-
-	return csv;
+    return csv;
 }
 // MOSTRA O NUMERO DE LINHAS DE UM ARQUIVO
-int lineNumberFile(FILE* f){
+void lineNumberFile(char* path, Tcsv_data *csv){
 	int number = 0;
+	int length = 0;
+	int i = 0;
 	char character;
-	if(f != NULL);
+
+	Tcsv_map map;
+
+	FILE* f = openFile(path, 'r');
+
+	if(f != NULL)
 		while((character=fgetc(f)) != EOF){
 			if(character == '\n') number++;
 		}
-	return number + 1;
+
+	closeFile(f);
+	f = openFile(path, 'r');
+
+	map.lines = number;
+
+	map.length_line = create_I_Vector(map.lines);
+
+	number = 0;
+
+	if(f != NULL)
+		while((character=fgetc(f)) != EOF){
+			if(character != '\n') length++;
+			else{ 
+				map.length_line[number] = length + 1;
+				length = 0;
+				number++;
+			}
+		}
+
+	closeFile(f);
+
+	csv->map = map;
+
+	f = openFile(path, 'r');
+
+	create_R_CharacterMatrix(csv);
+
+	if(f != NULL)
+		for( i = 0 ; csv->map.length_line ; i++ ){
+			fscanf(f, "%[^\n]", csv->data[i]);
+			printf("%s\n", csv->data[i]);
+		}
+
+	closeFile(f);
 }
 // OMITE N LINHAS DA LEITURA DO ARQUIVO
 void omitLines(FILE* f, int n){

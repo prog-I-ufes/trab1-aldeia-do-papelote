@@ -7,7 +7,7 @@ int **createMatrix(TDimension dim){
 	int i = 0;
 	int **mat = (int**) malloc(sizeof(int) * dim.x);
 
-	for( i = 0 ; i < dim.y ; i++ ){
+	for( i = 0 ; i < dim.x ; i++ ){
 		mat[i] = (int*) malloc(sizeof(int) * dim.y);
 	}
 
@@ -19,10 +19,19 @@ char **createCharacterMatrix(TDimension dim){
 	char **mat = (char**) malloc(sizeof(char) * dim.x);
 
 	if(dim.y != -1)
-		for( i = 0 ; i < dim.y ; i++ )
+		for( i = 0 ; i < dim.x ; i++ )
 			mat[i] = (char*) malloc(sizeof(char) * dim.y);
 		
 	return mat;
+}
+// ALOCA UMA MATRIZ DE CHAR COM LINHAS DE TAMANHO VARIADOS
+void create_R_CharacterMatrix(Tcsv_data *map){
+	int i = 0;
+	map->data = (char**) malloc(sizeof(char) * map->map.lines);
+
+	for( i = 0 ; i < map->map.lines; i++ ){
+		map->data[i] = (char*) malloc(sizeof(char) * map->map.length_line[i]);
+	}
 }
 // LIBERA UMA MATRIZ DE INTEIROS DA MEMORIA
 void freeMatrix(int **mat, TDimension dim){
