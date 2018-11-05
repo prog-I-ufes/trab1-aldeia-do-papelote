@@ -1,5 +1,6 @@
 #include "../headers/KNN_Matrix.h"
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 
 // ALOCA UMA MATRIZ DE INTEIROS DINAMICAMENTE
@@ -59,4 +60,28 @@ void printMatrix(int **mat, TDimension dim){
 			printf("[%d]", mat[i][j]);
 		printf("\n");
 	}
+}
+// OFAEKOFKEFAE
+float **splitNumbers(Tcsv_data *csv){
+	int i = 0;
+	int j = 0;
+	int counter = 0;
+	char** pch = (char**) malloc(sizeof(char*) * csv->map.lines);
+
+	float** numbers = (float**) malloc(sizeof(float*) * csv->map.lines);
+
+	for( i = 0 ; i < csv->map.lines ; i++ ){
+		counter = 0;
+
+		pch[i] = strtok (csv->data[i],",");
+	  	while (pch[i] != NULL){
+  			pch[i] = strtok (NULL, ",");
+			counter++;
+  		}
+		
+		numbers[i] = (float*) malloc(sizeof(float) * counter);
+				
+	}
+
+	return numbers;
 }

@@ -9,8 +9,6 @@
 
 int main(void){
     FILE* config = openFile("config.txt", 'r');
-    FILE* training;
-    FILE* test;
 
     char* training_path;
     char* test_path;
@@ -23,12 +21,16 @@ int main(void){
     test_path = readLineFile(config);
     predicts_path = readLineFile(config);
 
+    closeFile(config);
+
     printf("\n%s\n", training_path);
     printf("%s\n", test_path);
     
     training_content = readFileToMatrix(training_path);
     test_content = readFileToMatrix(test_path);
     
+    splitNumbers(training_content);
+
     free(training_path);
     free(test_path);
     free(predicts_path);

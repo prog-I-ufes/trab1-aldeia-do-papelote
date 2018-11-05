@@ -15,5 +15,6 @@ void freeMatrix(int **mat, int lines);
 void freeCharacterMatrix(char** mat, int lines);
 // IMPRIME A MATRIZ NA TELA
 void printMatrix(int **mat, TDimension dim);
-
+// FAKEOFKAEOF
+float **splitNumbers(Tcsv_data *csv);
 #endif
