@@ -38,19 +38,9 @@ char** readFileToMatrix(char* path){
 	FILE* file = openFile(path, 'r');
 
 	int n = lineNumberFile(file);
-	int i = 0;
-	
-	TDimension dim;
-	dim.x = n;
-	dim.y = -1;
 
-	char** content = createCharacterMatrix(dim);
+	return NULL;
 
-	closeFile(file);
-	file = openFile(path, 'r');
-	omitLines(file, 3);
-
-	return content;
 }
 // MOSTRA O NUMERO DE LINHAS DE UM ARQUIVO
 int lineNumberFile(FILE* f){

@@ -23,8 +23,11 @@ int main(void){
     test_path = readLineFile(config);
     predicts_path = readLineFile(config);
 
-    training_content = readFileToMatrix(training_path);
-    test_content = readFileToMatrix(test_path);
+    printf("\n%s\n", training_path);
+    printf("\n%s\n", test_path);
+    
+    //training_content = readFileToMatrix(training_path);
+    //test_content = readFileToMatrix(test_path);
     
     free(training_path);
     free(test_path);

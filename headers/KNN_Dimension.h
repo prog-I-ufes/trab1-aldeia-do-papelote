@@ -6,4 +6,6 @@ typedef struct Dimension{
 	int y;
 } TDimension;
 
+int getArea(TDimension d);
+
 #endif
