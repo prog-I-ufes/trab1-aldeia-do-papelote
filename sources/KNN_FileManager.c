@@ -2,6 +2,7 @@
 #include "../headers/KNN_Dimension.h"
 #include "../headers/KNN_Matrix.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 // ABRE UM ARQUIVO DE ACORDO COM O MODO
@@ -34,22 +35,44 @@ char* readLineFile(FILE* f){
 	return path;
 }
 // LE UM ARQUIVO INTEIRO E ARMAZENA NUM VETOR DE STRINGS
-char** readFileToMatrix(char* path){
+Tcsv_data readFileToMatrix(char* path){
 	FILE* file = openFile(path, 'r');
+	int i = 0;
+	Tcsv_data csv;
 
-	int n = lineNumberFile(file);
+	if(file != NULL){
 
-	return NULL;
+		csv.lines = lineNumberFile(file);
+		closeFile(file);
 
+		TDimension dim;
+		dim.x = csv.lines;
+		dim.y = -1;
+
+		csv.data = createCharacterMatrix(dim);
+
+		file = openFile(path, 'w');
+
+		for( i = 0 ; i < csv.lines ; i++ ){
+		//	fscanf(file, "%s", csv.data[i]);
+		//	printf("%s", csv.data[i]);
+		}
+
+	}
+
+	closeFile(file);
+
+	return csv;
 }
 // MOSTRA O NUMERO DE LINHAS DE UM ARQUIVO
 int lineNumberFile(FILE* f){
 	int number = 0;
-	int character;
-	while((character=fgetc(f))!= EOF){
-		if(character == '\n') number++;
-	}
-	return number;
+	char character;
+	if(f != NULL);
+		while((character=fgetc(f)) != EOF){
+			if(character == '\n') number++;
+		}
+	return number + 1;
 }
 // OMITE N LINHAS DA LEITURA DO ARQUIVO
 void omitLines(FILE* f, int n){
