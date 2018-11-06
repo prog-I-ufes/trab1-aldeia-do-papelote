@@ -9,10 +9,14 @@ int **createMatrix(TDimension dim);
 char **createCharacterMatrix(TDimension dim);
 // ALOCA UMA MATRIZ DE CHAR COM LINHAS DE TAMANHO VARIADOS
 char **create_R_CharacterMatrix(Tcsv_map map);
+// ALOCA UMA MATRIZ DE FLOATS DINAMICAMENTE
+float **createFloatMatrix(TDimension dim);
 // LIBERA UMA MATRIZ DE INTEIROS DA MEMÓRIA
 void freeMatrix(int **mat, int lines);
 // LIBERA UMA MATRIZ DE CARACTERES DA MEMORIA
 void freeCharacterMatrix(char** mat, int lines);
+// LIBERA UMA MATRIZ DE FLOATS DA MEMORIA
+void freeFloatMatriz(float** mat, int lines);
 // IMPRIME A MATRIZ NA TELA
 void printMatrix(int **mat, TDimension dim);
 // FAKEOFKAEOF

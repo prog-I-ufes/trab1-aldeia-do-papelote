@@ -17,29 +17,34 @@ int main(void){
     Tcsv_data* training_content;
     Tcsv_data* test_content;
 
+    float** training_data;
+    float** test_data;
+
     training_path = readLineFile(config);
     test_path = readLineFile(config);
     predicts_path = readLineFile(config);
 
     closeFile(config);
-
-    printf("\n%s\n", training_path);
-    printf("%s\n", test_path);
     
     training_content = readFileToMatrix(training_path);
-    //test_content = readFileToMatrix(test_path);
     
-    splitNumbers(training_content);
+    test_content = readFileToMatrix(test_path);
+    
+    training_data = splitNumbers(training_content);
+    test_data = splitNumbers(test_content);
 
     free(training_path);
     free(test_path);
     free(predicts_path);
 
     freeCharacterMatrix(training_content->data, training_content->map.lines);
-    //freeCharacterMatrix(test_content->data, test_content->map.lines);
+    freeCharacterMatrix(test_content->data, test_content->map.lines);
+
+    free(training_content->map.length_line);
+    free(test_content->map.length_line);
 
     free(training_content);
-    //free(test_content);
+    free(test_content);
 
     return 0;
 }

@@ -36,6 +36,10 @@ char** create_R_CharacterMatrix(Tcsv_map map){
 
 	return mat;
 }
+// ALOCA UMA MATRIZ DE FLOATS DINAMICAMENTE
+float **createFloatMatrix(TDimension dim){
+
+}
 // LIBERA UMA MATRIZ DE INTEIROS DA MEMORIA
 void freeMatrix(int **mat, int lines){
 	int i = 0;
@@ -49,6 +53,10 @@ void freeCharacterMatrix(char **mat, int lines){
 	for( i = 0 ; i < lines ; i++ )
 		free(mat[i]);
 	free(mat);
+}
+// LIBERA UMA MATRIZ DE FLOATS DA MEMORIA
+void freeFloatMatriz(float** mat, int lines){
+	
 }
 // IMPRIME A MATRIZ NA TELA
 void printMatrix(int **mat, TDimension dim){
@@ -66,43 +74,30 @@ float **splitNumbers(Tcsv_data *csv){
 	int i = 0;
 	int j = 0;
 	int counter = 0;
+	char character;
 	char** pch = (char**) malloc(sizeof(char*) * csv->map.lines);
 
 	float** numbers = (float**) malloc(sizeof(float*) * csv->map.lines);
 
-	counter = 0;
+	counter = 1;
 
-	pch[i] = strtok (csv->data[i],",");
-	while (pch[i] != NULL){
-  		pch[i] = strtok (NULL, ",");
-		counter++;
-  	}
+	for( i = 0 ; i < csv->map.length_line[0] ; i++)
+		if((character = csv->data[0][i]) == ',') counter++;
 
 	for( i = 0 ; i < csv->map.lines ; i++ ){
+		j = 0;
 		numbers[i] = (float*) malloc(sizeof(float) * counter);
-
-		//pch[i] = strtok (csv->data[i],",");
-		printf("csv = %s \n", csv->data[i]);
-		//numbers[i][j] = atof(pch[i]);
-		//printf("%s \n", pch[i]);
-		//j++;
-	  	//while (1){
-  		//	pch[i] = strtok (NULL, ",");
-		//	printf("%s ", pch[i]);
-		//	if(pch[i] != NULL)
-		//		numbers[i][j] = atof(pch[i]);
-		//	else break;
-		//	j++;
-		//}
-
-		j = 0;	
+		pch[i] = strtok (csv->data[i],",");
+		numbers[i][j] = atof(pch[i]);
+		j++;
+	  	while (1){
+  			pch[i] = strtok (NULL, ",");
+			if(pch[i] != NULL)
+				numbers[i][j] = atof(pch[i]);
+			else break;
+			j++;
+		}
 	}
-
-	for( i = 0 ; i < 105 ; i++ ){
-		for( j = 0 ; j < 5 ; j++ ){}
-			//printf("[%.2f]", numbers[i][j]);
-		//printf("\n");
-	}
-
+	
 	return numbers;
 }

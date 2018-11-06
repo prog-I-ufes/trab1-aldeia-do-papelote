@@ -3,6 +3,50 @@
 #include <stdio.h>
 #include <math.h>
 
+// ALOCA UM VETOR DE FLOATS DINAMICAMENTE
+float* create_F_Vector(int length){
+	float *v = (float*) malloc(sizeof(float) * length);
+	return v;
+}
+// LIBERA UM VETOR DE FLOATS DA MEMORIA
+void free_F_Vector(float* v){ free(v); }
+// ALOCA UM VETOR DE FLOATS DINAMICAMENTE
+float* create_F_Vector(float length){
+
+}
+// LIBERA UM VETOR DE FLOATS DA MEMORIA
+void free_F_Vector(float* v){
+
+}
+// SOMA O VETOR V COM O VETOR W
+float* sum_F_Vector(float *v, float *w, float len){
+
+}
+// SUBTRAI O VETOR W DO VETOR V
+float* subtract_F_Vector(float *v, float *w, float len){
+
+}
+// PRODUTO floatERNO ENTRE O VETOR V E O VETOR W
+float product_F_Vector(float *v, float *w, float len){
+
+}
+// CRIA UM VETOR QUE É O QUADRADO DE V
+float* square_F_Vector(float *v, float len){
+
+}
+// CRIA UM VETOR QUE É OS ELEMENTOS DE V ELEVADOS A N
+float* pow_F_Vector(float *v, float len, float n){
+
+}
+// CRIA UM VETOR QUE É O VALOR ABSOLUTO DOS ELEMENTOS
+float* abs_F_Vector(float *v, float len){
+
+}
+// SOMATÓRIO DOS ELEMENTOS DO VETOR DE floatEIROS
+float sum_Elements_F_Vector(float *v, float len){
+
+}
+
 // ALOCA UM VETOR DINAMICAMENTE
 int* create_I_Vector(int length){
 	int *v = (int*) malloc(sizeof(int) * length);

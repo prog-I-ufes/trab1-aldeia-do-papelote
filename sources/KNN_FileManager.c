@@ -77,11 +77,9 @@ Tcsv_data *readFileToMatrix(char* path){
 	csv->data = create_R_CharacterMatrix(csv->map);
 	
 	f = openFile(path, 'r');
-	char palavra[25];
+	
 	for( i = 0 ; i < csv->map.lines ; i++ ){
-		fscanf(f, "%s", palavra);
-		
-		strcpy(csv->data[i], palavra); 
+		fscanf(f, "%s", csv->data[i]);
 	}
 
 	closeFile(f);
