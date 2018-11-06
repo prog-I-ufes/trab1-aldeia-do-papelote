@@ -86,6 +86,72 @@ Tcsv_data *readFileToMatrix(char* path){
 
 	return csv;
 }
+
+Tcommand_data* readInstructions(char* path){
+	Tcommand_data *data = (Tcommand_data*) malloc(sizeof(Tcommand_data));
+
+	int number = 0;
+	int length = 0;
+	int i = 0, j = 0;
+	char character;
+	char* palavra;
+
+	Tcommand command;
+
+	Tcsv_map map;
+
+	FILE* f = openFile(path, 'r');
+	omitLines(f, 3);
+	if(f != NULL)
+		while((character=fgetc(f)) != EOF){
+			if(character == '\n') number++;
+		}
+
+	closeFile(f);
+	f = openFile(path, 'r');
+	omitLines(f, 3);
+
+	printf("\n%d\n", number);
+	
+	map.lines = number;
+	data->data = (Tcommand*) malloc(sizeof(Tcommand) * number);
+
+	number = 0;
+	
+	if(f != NULL)
+		while((character=fgetc(f)) != EOF){
+			if(character != '\n') length++;
+			else{ 
+				map.length_line[number] = length + 1;
+				length = 0;
+				number++;
+			}
+			printf("%d ", length + 1);
+		}
+
+	closeFile(f);
+	printf("\n");
+	data->map = map;
+	
+	f = openFile(path, 'r');
+	omitLines(f, 3);
+
+	for( i = 0 ; i < data->map.lines ; i++ ){
+		palavra = (char*) malloc(sizeof(char) * data->map.length_line[i]);
+		fscanf(f, "%s", palavra);
+
+		//data->data[i] = splitCommands(palavra);
+
+		//printf("%d %c %.2f \n", data->data[i].k, data->data[i].distance, data->data[i].r);
+
+		free(palavra);
+		
+	}
+
+	closeFile(f);
+	
+	return data;
+}
 // OMITE N LINHAS DA LEITURA DO ARQUIVO
 void omitLines(FILE* f, int n){
 	int i = 0;

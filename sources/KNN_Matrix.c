@@ -61,7 +61,7 @@ void freeCharacterMatrix(char **mat, int lines){
 	free(mat);
 }
 // LIBERA UMA MATRIZ DE FLOATS DA MEMORIA
-void freeFloatMatriz(float** mat, int lines){
+void freeFloatMatrix(float** mat, int lines){
 	int i = 0;
 	for( i = 0 ; i < lines ; i++ )
 		free(mat[i]);
@@ -107,6 +107,22 @@ float **splitNumbers(Tcsv_data *csv){
 			j++;
 		}
 	}
+
+	freeCharacterMatrix(pch, csv->map.lines);
 	
 	return numbers;
+}
+// aoerkoaerk
+Tcommand splitCommands(char* word){
+	Tcommand command;
+	command.r = -1;
+	char* pch;
+	
+	pch = strtok (word,", ");
+	command.k = atoi(pch);
+	pch = strtok (NULL, ", ");
+	command.distance = pch[0];
+	if(pch != NULL) command.r = atof(pch);
+	
+	return command;
 }

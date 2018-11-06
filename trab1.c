@@ -9,6 +9,7 @@
 
 int main(void){
     FILE* config = openFile("config.txt", 'r');
+    Tcommand_data* commands;
 
     char* training_path;
     char* test_path;
@@ -26,8 +27,9 @@ int main(void){
 
     closeFile(config);
     
+    commands = readInstructions("config.txt");
+
     training_content = readFileToMatrix(training_path);
-    
     test_content = readFileToMatrix(test_path);
     
     training_data = splitNumbers(training_content);
@@ -40,11 +42,16 @@ int main(void){
     freeCharacterMatrix(training_content->data, training_content->map.lines);
     freeCharacterMatrix(test_content->data, test_content->map.lines);
 
+    freeFloatMatrix(training_data, training_content->map.lines);
+    freeFloatMatrix(test_data, test_content->map.lines);
+
+    //freeCommands(commands);
+    
     free(training_content->map.length_line);
     free(test_content->map.length_line);
 
     free(training_content);
     free(test_content);
-
+    
     return 0;
 }

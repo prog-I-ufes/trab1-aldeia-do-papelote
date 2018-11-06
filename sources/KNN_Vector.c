@@ -73,6 +73,16 @@ float sum_Elements_F_Vector(float *v, int len){
 
 	return sum;
 }
+// RETORNA O MAXIMO ELEMENTO EM UM VETOR DE FLOATS
+float max_F_Vector(float *v, int len){
+	int i = 0;
+	float max = v[0];
+
+	for( i = 1 ; i < len ; i++ )
+		if(max < v[i]) max = v[i];
+
+	return max;
+}
 
 // ALOCA UM VETOR DINAMICAMENTE
 int* create_I_Vector(int length){

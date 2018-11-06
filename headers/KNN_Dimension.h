@@ -16,6 +16,18 @@ typedef struct csv_data{
     char** data;
 } Tcsv_data;
 
+typedef struct command{
+    int k;
+    char distance;
+    float r;
+} Tcommand;
+
+typedef struct command_data{
+    Tcommand *data;
+    Tcsv_map map;
+} Tcommand_data;
+
 int getArea(TDimension d);
+void freeCommands(Tcommand_data *data);
 
 #endif

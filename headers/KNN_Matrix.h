@@ -16,9 +16,11 @@ void freeMatrix(int **mat, int lines);
 // LIBERA UMA MATRIZ DE CARACTERES DA MEMORIA
 void freeCharacterMatrix(char** mat, int lines);
 // LIBERA UMA MATRIZ DE FLOATS DA MEMORIA
-void freeFloatMatriz(float** mat, int lines);
+void freeFloatMatrix(float** mat, int lines);
 // IMPRIME A MATRIZ NA TELA
 void printMatrix(int **mat, TDimension dim);
 // FAKEOFKAEOF
 float **splitNumbers(Tcsv_data *csv);
+// ROAEKOREAK
+Tcommand splitCommands(char* word);
 #endif
