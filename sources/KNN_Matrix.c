@@ -38,7 +38,13 @@ char** create_R_CharacterMatrix(Tcsv_map map){
 }
 // ALOCA UMA MATRIZ DE FLOATS DINAMICAMENTE
 float **createFloatMatrix(TDimension dim){
-
+	int i = 0;
+	float **mat = (float**) malloc(sizeof(float*) * dim.x);
+	
+	for( i = 0 ; i < dim.x ; i++ )
+		mat[i] = (float*) malloc(sizeof(float) * dim.y);
+	
+	return mat;
 }
 // LIBERA UMA MATRIZ DE INTEIROS DA MEMORIA
 void freeMatrix(int **mat, int lines){
@@ -56,7 +62,10 @@ void freeCharacterMatrix(char **mat, int lines){
 }
 // LIBERA UMA MATRIZ DE FLOATS DA MEMORIA
 void freeFloatMatriz(float** mat, int lines){
-	
+	int i = 0;
+	for( i = 0 ; i < lines ; i++ )
+		free(mat[i]);
+	free(mat);
 }
 // IMPRIME A MATRIZ NA TELA
 void printMatrix(int **mat, TDimension dim){

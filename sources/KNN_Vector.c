@@ -10,41 +10,69 @@ float* create_F_Vector(int length){
 }
 // LIBERA UM VETOR DE FLOATS DA MEMORIA
 void free_F_Vector(float* v){ free(v); }
-// ALOCA UM VETOR DE FLOATS DINAMICAMENTE
-float* create_F_Vector(float length){
-
-}
-// LIBERA UM VETOR DE FLOATS DA MEMORIA
-void free_F_Vector(float* v){
-
-}
 // SOMA O VETOR V COM O VETOR W
-float* sum_F_Vector(float *v, float *w, float len){
-
+float* sum_F_Vector(float *v, float *w, int len){
+	float* z = create_F_Vector(len);
+	int i = 0;
+	for( i = 0 ; i < len ; i++ ){
+		z[i] = v[i] + w[i];
+	}
+	return z;
 }
 // SUBTRAI O VETOR W DO VETOR V
-float* subtract_F_Vector(float *v, float *w, float len){
-
+float* subtract_F_Vector(float *v, float *w, int len){
+	float* z = create_F_Vector(len);
+	int i = 0;
+	for( i = 0 ; i < len ; i++ ){
+		z[i] = v[i] - w[i];
+	}
+	return z;
 }
 // PRODUTO floatERNO ENTRE O VETOR V E O VETOR W
-float product_F_Vector(float *v, float *w, float len){
-
+float product_F_Vector(float *v, float *w, int len){
+	float* z = create_F_Vector(len);
+	int i = 0;
+	for( i = 0 ; i < len ; i++ ){
+		z[i] = v[i] * w[i];
+	}
+	return z;
 }
 // CRIA UM VETOR QUE É O QUADRADO DE V
-float* square_F_Vector(float *v, float len){
-
+float* square_F_Vector(float *v, int len){
+	float* z = create_F_Vector(len);
+	int i = 0;
+	for( i = 0 ; i < len ; i++ ){
+		z[i] = v[i]*v[i];
+	}
+	return z;
 }
 // CRIA UM VETOR QUE É OS ELEMENTOS DE V ELEVADOS A N
-float* pow_F_Vector(float *v, float len, float n){
-
+float* pow_F_Vector(float *v, int len, float n){
+	float* z = create_F_Vector(len);
+	int i = 0;
+	for( i = 0 ; i < len ; i++ ){
+		z[i] = pow(v[i], n);
+	}
+	return z;
 }
 // CRIA UM VETOR QUE É O VALOR ABSOLUTO DOS ELEMENTOS
-float* abs_F_Vector(float *v, float len){
-
+float* abs_F_Vector(float *v, int len){
+	float* z = create_F_Vector(len);
+	int i = 0;
+	for( i = 0 ; i < len ; i++ ){
+		z[i] = fabs(v[i]);
+	}
+	return z;
 }
 // SOMATÓRIO DOS ELEMENTOS DO VETOR DE floatEIROS
-float sum_Elements_F_Vector(float *v, float len){
+float sum_Elements_F_Vector(float *v, int len){
+	int i = 0;
+	float sum = 0;
 
+	for( i = 0 ; i < len ; i++ )
+		sum += v[i];
+
+	return sum;
 }
 
 // ALOCA UM VETOR DINAMICAMENTE
