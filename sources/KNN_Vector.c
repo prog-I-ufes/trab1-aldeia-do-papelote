@@ -30,12 +30,11 @@ float* subtract_F_Vector(float *v, float *w, int len){
 }
 // PRODUTO floatERNO ENTRE O VETOR V E O VETOR W
 float product_F_Vector(float *v, float *w, int len){
-	float* z = create_F_Vector(len);
 	int i = 0;
-	for( i = 0 ; i < len ; i++ ){
-		z[i] = v[i] * w[i];
-	}
-	return z;
+	float product = 0;
+	for( i = 0 ; i < len ; i++ )
+		product += v[i] * w[i];
+	return product;
 }
 // CRIA UM VETOR QUE É O QUADRADO DE V
 float* square_F_Vector(float *v, int len){
