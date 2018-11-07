@@ -7,7 +7,61 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void runEuclidian(Tcsv_data* training_content, Tcsv_data* test_content, int k){
+    int i = 0;
+    int j = 0;
+
+    float** training_data;
+    float** test_data;
+
+    float* dist = (float*) malloc(sizeof(float) * training_content->map.lines);
+    float* k_minors;
+    int* k_index = malloc(sizeof(int) * k);
+
+    training_data = splitNumbers(training_content);
+    test_data = splitNumbers(test_content);
+
+    for( i = 0 ; i < test_content->map.lines ; i++ ){
+        for( j = 0 ; j < training_content->map.lines ; i++ ){
+            //dist[j] = euclidianDistance(test_content->data[i], training_content->data[j]); 
+        }
+        k_minors = kMinors(dist, training_content->map.lines, k, k_index);
+    }
+
+    free_F_Vector(dist);
+    free_F_Vector(k_minors);
+    free_I_Vector(k_index);
+
+    freeFloatMatrix(training_data, training_content->map.lines);
+    freeFloatMatrix(test_data, test_content->map.lines);
+}
+
+void runMinkowsky(Tcsv_data* training_content, Tcsv_data* test_content, int k, float r){
+
+}
+
+void runChebyshev(Tcsv_data* training_content, Tcsv_data* test_content, int k){
+
+}
+
+void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data* test_content){
+    int i = 0;
+
+    for( i = 0 ; i < commands->map.lines ; i++ ){
+        switch(commands->data[i].distance){
+            case 'E':
+                runEuclidian(training_content, test_content, commands->data[i].k);
+            case 'M':
+                runMinkowsky(training_content, test_content, commands->data[i].k, commands->data[i].r);
+            case 'C':
+                runChebyshev(training_content, test_content, commands->data[i].k);
+        }
+    }
+
+}
+
 int main(void){
+    
     FILE* config = openFile("config.txt", 'r');
     Tcommand_data* commands;
 
@@ -17,9 +71,6 @@ int main(void){
 
     Tcsv_data* training_content;
     Tcsv_data* test_content;
-
-    float** training_data;
-    float** test_data;
 
     training_path = readLineFile(config);
     test_path = readLineFile(config);
@@ -31,9 +82,8 @@ int main(void){
 
     training_content = readFileToMatrix(training_path);
     test_content = readFileToMatrix(test_path);
-    
-    training_data = splitNumbers(training_content);
-    test_data = splitNumbers(test_content);
+
+    runCommands(commands, training_content, test_content);
 
     free(training_path);
     free(test_path);
@@ -42,10 +92,8 @@ int main(void){
     freeCharacterMatrix(training_content->data, training_content->map.lines);
     freeCharacterMatrix(test_content->data, test_content->map.lines);
 
-    freeFloatMatrix(training_data, training_content->map.lines);
-    freeFloatMatrix(test_data, test_content->map.lines);
-
-    //freeCommands(commands);
+    free(commands->map.length_line);
+    freeCommands(commands);
     
     free(training_content->map.length_line);
     free(test_content->map.length_line);

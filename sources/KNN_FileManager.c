@@ -92,7 +92,7 @@ Tcommand_data* readInstructions(char* path){
 
 	int number = 0;
 	int length = 0;
-	int i = 0, j = 0;
+	int i = 0;
 	char character;
 	char* palavra;
 
@@ -110,11 +110,10 @@ Tcommand_data* readInstructions(char* path){
 	closeFile(f);
 	f = openFile(path, 'r');
 	omitLines(f, 3);
-
-	printf("\n%d\n", number);
 	
 	map.lines = number;
-	data->data = (Tcommand*) malloc(sizeof(Tcommand) * number);
+	map.length_line = create_I_Vector(map.lines);
+	data->data = (Tcommand*) malloc(sizeof(Tcommand) * map.lines);
 
 	number = 0;
 	
@@ -126,29 +125,34 @@ Tcommand_data* readInstructions(char* path){
 				length = 0;
 				number++;
 			}
-			printf("%d ", length + 1);
 		}
 
-	closeFile(f);
-	printf("\n");
+	closeFile(f);	
 	data->map = map;
 	
 	f = openFile(path, 'r');
 	omitLines(f, 3);
+	fgetc(f);
+	number = 0;
 
-	for( i = 0 ; i < data->map.lines ; i++ ){
+
+	for( i = 0 ; i < data->map.lines - 1 ; i++ ){
 		palavra = (char*) malloc(sizeof(char) * data->map.length_line[i]);
-		fscanf(f, "%s", palavra);
-
-		//data->data[i] = splitCommands(palavra);
-
-		//printf("%d %c %.2f \n", data->data[i].k, data->data[i].distance, data->data[i].r);
-
-		free(palavra);
 		
+		while((character = fgetc(f)) != '\n'){
+			palavra[number] = character;
+			number++;
+		}
+		number++;
+		palavra[number] = '\0';
+		number = 0;
+
+		data->data[i] = splitCommands(palavra);
+
+		free(palavra);		
 	}
 
-	closeFile(f);
+ 	closeFile(f);
 	
 	return data;
 }

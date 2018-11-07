@@ -115,14 +115,15 @@ float **splitNumbers(Tcsv_data *csv){
 // aoerkoaerk
 Tcommand splitCommands(char* word){
 	Tcommand command;
-	command.r = -1;
+	command.r = 0;
 	char* pch;
 	
 	pch = strtok (word,", ");
 	command.k = atoi(pch);
 	pch = strtok (NULL, ", ");
 	command.distance = pch[0];
-	if(pch != NULL) command.r = atof(pch);
+	pch = strtok (NULL, ", ");
+	if(pch != NULL)	command.r = atof(pch);
 	
 	return command;
 }

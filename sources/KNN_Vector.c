@@ -3,6 +3,38 @@
 #include <stdio.h>
 #include <math.h>
 
+
+float* kMinors(float* dist, int len, int k, int* index){
+	int i = 0;
+	int j = 0;
+	int aux;
+	float* minor = create_F_Vector(k);
+	int* indexs = create_I_Vector(len);
+
+	for( i = 0 ; i < len ; i++ )
+		index[i] = i;
+
+	for( i = 0 ; i < len ; i++ )
+		for( j = 0 ; j < len ; j++ ){
+			if( dist[i] > dist[j] ){
+				aux = dist[i];
+				dist[i] = dist[j];
+				dist[j] = aux;
+				aux = index[i];
+				index[i] = index[j];
+				index[j] = aux;
+			}
+		}
+	
+	for( i = 0 ; i < k ; i++ )
+		minor[i] = dist[i]; 
+
+	free_I_Vector(indexs);
+
+	return minor;
+}
+
+
 // ALOCA UM VETOR DE FLOATS DINAMICAMENTE
 float* create_F_Vector(int length){
 	float *v = (float*) malloc(sizeof(float) * length);
@@ -80,7 +112,7 @@ float max_F_Vector(float *v, int len){
 
 	for( i = 1 ; i < len ; i++ )
 		if(max < v[i]) max = v[i];
-
+	
 	return max;
 }
 
