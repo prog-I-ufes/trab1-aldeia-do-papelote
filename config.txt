@@ -1,5 +1,5 @@
-training/iris_treino.csv
-tests/iris_teste.csv
+training/filmes_treino.csv
+tests/filmes_teste.csv
 predicts/
 3, C
 3, M, 0.5
