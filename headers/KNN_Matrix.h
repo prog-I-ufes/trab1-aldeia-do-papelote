@@ -20,7 +20,7 @@ void freeFloatMatrix(float** mat, int lines);
 // IMPRIME A MATRIZ NA TELA
 void printMatrix(int **mat, TDimension dim);
 // FAKEOFKAEOF
-float **splitNumbers(Tcsv_data *csv);
+float **splitNumbers(Tcsv_data *csv, int *counter);
 // ROAEKOREAK
 Tcommand splitCommands(char* word);
 #endif

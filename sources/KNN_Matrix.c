@@ -79,24 +79,26 @@ void printMatrix(int **mat, TDimension dim){
 	}
 }
 // OFAEKOFKEFAE
-float **splitNumbers(Tcsv_data *csv){
+float **splitNumbers(Tcsv_data *csv, int *counter){
 	int i = 0;
 	int j = 0;
-	int counter = 0;
+	*counter = 1;
 	char character;
+	char* cpy;
 	char** pch = (char**) malloc(sizeof(char*) * csv->map.lines);
 
 	float** numbers = (float**) malloc(sizeof(float*) * csv->map.lines);
 
-	counter = 1;
-
 	for( i = 0 ; i < csv->map.length_line[0] ; i++)
-		if((character = csv->data[0][i]) == ',') counter++;
+		if((character = csv->data[0][i]) == ',') (*counter)++;
 
 	for( i = 0 ; i < csv->map.lines ; i++ ){
+		cpy = malloc(sizeof(char) * csv->map.length_line[i]);
+		strcpy(cpy, csv->data[i]);
+
 		j = 0;
-		numbers[i] = (float*) malloc(sizeof(float) * counter);
-		pch[i] = strtok (csv->data[i],",");
+		numbers[i] = (float*) malloc(sizeof(float) * (*counter));
+		pch[i] = strtok (cpy,",");
 		numbers[i][j] = atof(pch[i]);
 		j++;
 	  	while (1){
@@ -106,6 +108,8 @@ float **splitNumbers(Tcsv_data *csv){
 			else break;
 			j++;
 		}
+
+		free(cpy);
 	}
 
 	freeCharacterMatrix(pch, csv->map.lines);

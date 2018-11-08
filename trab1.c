@@ -14,27 +14,36 @@ void runEuclidian(Tcsv_data* training_content, Tcsv_data* test_content, int k){
     float** training_data;
     float** test_data;
 
+    int* training_rotules = (int*) malloc(sizeof(int) * k);
+    int* test_rotule = (int*) malloc(sizeof(int));
+
+    int vet_len = 0;
+
     float* dist = (float*) malloc(sizeof(float) * training_content->map.lines);
     float* k_minors;
     int* k_index = malloc(sizeof(int) * k);
 
-    training_data = splitNumbers(training_content);
-    test_data = splitNumbers(test_content);
+    training_data = splitNumbers(training_content, &vet_len);
+    test_data = splitNumbers(test_content, &vet_len);
 
-    for( i = 0 ; i < test_content->map.lines ; i++ ){
-        for( j = 0 ; j < training_content->map.lines ; j++ ){
-            dist[j] = euclidianDistance(test_data[i], training_data[j], training_content->map.length_line[i]);
+    for( i = 0 ; i < test_content->map.lines  ; i++ ){
+        for( j = 0 ; j < training_content->map.lines - 1 ; j++ ){
+            dist[j] = euclidianDistance(test_data[i], training_data[j], vet_len);
         }
         k_minors = kMinors(dist, training_content->map.lines, k, k_index);
+        *test_rotule = test_data[i][vet_len - 1];
+        for( j = 0 ; j < k ; j++ ){
+            training_rotules[j] = training_data[k_index[j]][vet_len - 1];
+            printf("index: %.2d | %d \n", k_index[j], training_rotules[j]);
+        }
+        printf("\n");
     }
-
-    for( i = 0 ; i < k ; i++ ){
-        printf("%.2f no indice %d\n", k_minors[i], k_index[i]);
-    }
-
+    
     free_F_Vector(dist);
     free_F_Vector(k_minors);
     free_I_Vector(k_index);
+    free_I_Vector(training_rotules);
+    free(test_rotule);
 
     freeFloatMatrix(training_data, training_content->map.lines);
     freeFloatMatrix(test_data, test_content->map.lines);
@@ -55,11 +64,15 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
         switch(commands->data[i].distance){
             case 'E':
                 runEuclidian(training_content, test_content, commands->data[i].k);
+                break;
             case 'M':
                 runMinkowsky(training_content, test_content, commands->data[i].k, commands->data[i].r);
+                break;
             case 'C':
                 runChebyshev(training_content, test_content, commands->data[i].k);
+                break;
         }
+        if(commands->data[i].distance == 'E') break;
     }
 
 }

@@ -11,7 +11,7 @@ float euclidianDistance(float *v, float *w, int len){
 	z = subtract_F_Vector(v, w, len);
 	z_square = square_F_Vector(z, len);
 	free_F_Vector(z);
-	distance = sqrt(sum_Elements_F_Vector(z_square, len));
+	distance = sqrtf(sum_Elements_F_Vector(z_square, len));
 	free_F_Vector(z_square);
 
 	return distance;
