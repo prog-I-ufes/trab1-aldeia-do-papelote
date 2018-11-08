@@ -8,28 +8,30 @@ float* kMinors(float* dist, int len, int k, int* index){
 	int i = 0;
 	int j = 0;
 	int aux;
+	float aux_f;
 	float* minor = create_F_Vector(k);
-	int* indexs = create_I_Vector(len);
+	int indexs[len];
 
 	for( i = 0 ; i < len ; i++ )
-		index[i] = i;
+		indexs[i] = i;
 
-	for( i = 0 ; i < len ; i++ )
-		for( j = 0 ; j < len ; j++ ){
-			if( dist[i] > dist[j] ){
-				aux = dist[i];
+	for (i = 0 ; i < len - 1; i++){
+  	  	for (j = 0 ; j < len - i - 1; j++){
+  	  	   	if( dist[i] < dist[j] ){
+				aux_f = dist[i];
 				dist[i] = dist[j];
-				dist[j] = aux;
-				aux = index[i];
-				index[i] = index[j];
-				index[j] = aux;
+				dist[j] = aux_f;
+				aux = indexs[i];
+				indexs[i] = indexs[j];
+				indexs[j] = aux;
 			}
-		}
-	
-	for( i = 0 ; i < k ; i++ )
-		minor[i] = dist[i]; 
+  	  	}
+  	}
 
-	free_I_Vector(indexs);
+	for( i = 0 ; i < k ; i++ ){
+		minor[i] = dist[i]; 
+		index[i] = indexs[i];
+	}
 
 	return minor;
 }

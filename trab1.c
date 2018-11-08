@@ -22,10 +22,14 @@ void runEuclidian(Tcsv_data* training_content, Tcsv_data* test_content, int k){
     test_data = splitNumbers(test_content);
 
     for( i = 0 ; i < test_content->map.lines ; i++ ){
-        for( j = 0 ; j < training_content->map.lines ; i++ ){
-            //dist[j] = euclidianDistance(test_content->data[i], training_content->data[j]); 
+        for( j = 0 ; j < training_content->map.lines ; j++ ){
+            dist[j] = euclidianDistance(test_data[i], training_data[j], training_content->map.length_line[i]);
         }
         k_minors = kMinors(dist, training_content->map.lines, k, k_index);
+    }
+
+    for( i = 0 ; i < k ; i++ ){
+        printf("%.2f no indice %d\n", k_minors[i], k_index[i]);
     }
 
     free_F_Vector(dist);
