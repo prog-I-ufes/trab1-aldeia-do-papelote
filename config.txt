@@ -1,4 +1,13 @@
-training/filmes_treino.csv
-tests/filmes_teste.csv
+training/vowels_treino.csv
+tests/vowels_teste.csv
 predicts/
-2, E
+11, C
+13, M, 0.5
+13, E
+15, E
+16, C
+17, M, 0.7
+19, M, 0.3
+19, E
+15, M, 1.5
+18, C

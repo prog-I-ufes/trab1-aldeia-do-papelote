@@ -4,7 +4,7 @@
 // CALCULA A DISTANCIA EUCLIDIANA
 float euclidianDistance(float *v, float *w, int len);
 // CALCULA A DISTANCIA DE MINKOWSKY
-float minkowskyDistance(float *v, float *w, int len, float r);
+float minkowskyDistance(float *v, float *w, int len, int r);
 // CALCULA D SITANCIA PELA SIMILARIDADE DOS COSSENOS
 float chebyshevDistance(float *v, float *w, int len);
 

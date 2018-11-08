@@ -24,6 +24,8 @@ void print_Vector(int *v, int len);
 
 // ALOCA UM VETOR COM OS K MAIORES ELEMENTOS
 float* kMinors(float* dist, int len, int k, int* index);
+// BUSCA O ELEMENTO MAIS RECORRENTE DE UM VETOR
+int recorrence(int* v, int len);
 
 // ALOCA UM VETOR DE FLOATS DINAMICAMENTE
 float* create_F_Vector(int length);

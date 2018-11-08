@@ -11,13 +11,13 @@ float euclidianDistance(float *v, float *w, int len){
 	z = subtract_F_Vector(v, w, len);
 	z_square = square_F_Vector(z, len);
 	free_F_Vector(z);
-	distance = sqrtf(sum_Elements_F_Vector(z_square, len));
+	distance = sqrt(sum_Elements_F_Vector(z_square, len));
 	free_F_Vector(z_square);
 
 	return distance;
 }
 // CALCULA A DISTANCIA DE MINKOWSKY
-float minkowskyDistance(float *v, float *w, int len, float r){
+float minkowskyDistance(float *v, float *w, int len, int r){
 	float *z;
 	float *z_aux;
 	float distance = 0;
@@ -25,7 +25,7 @@ float minkowskyDistance(float *v, float *w, int len, float r){
 	z = subtract_F_Vector(v, w, len);
 	z_aux = abs_F_Vector(z, len);
 	free_F_Vector(z);
-	z = pow_F_Vector(z_aux, len, r);
+	z = pow_F_Vector(z_aux, len, r );
 	free_F_Vector(z_aux);
 	distance = pow(sum_Elements_F_Vector(z, len), 1.0/r);
 	free_F_Vector(z);

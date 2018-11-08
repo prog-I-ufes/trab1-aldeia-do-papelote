@@ -1,6 +1,13 @@
 #ifndef _H_DIMENSION
 #define _H_DIMENSION
 
+typedef struct confusion{
+    int true_and_true;
+    int false_and_true;
+    int true_and_false;
+    int false_and_false;
+} Tconfusion;
+
 typedef struct Dimension{
 	int x;
 	int y;

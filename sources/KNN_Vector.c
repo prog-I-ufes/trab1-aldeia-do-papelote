@@ -1,8 +1,34 @@
 #include "../headers/KNN_Vector.h"
+#include "../headers/KNN_Dimension.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 
+int recorrence(int* v, int len){
+	int elem = 0;
+	int n_elem = 0;
+	int pivot = 0;
+	int n_pivot = 0;
+	
+	int w[len];
+
+	int i = 0;
+	int j = 0;
+	
+	for( i = 0 ; i < len ; i++ ){
+		n_pivot = 0;
+		pivot = v[i];
+		for( j = 0 ; j < len ; j++ ){
+			if(pivot == v[j]) n_pivot++;
+		}
+		if( n_pivot > n_elem ){
+			elem = pivot;
+			n_elem = n_pivot;
+		}
+	}
+	
+	return elem;
+}
 
 float* kMinors(float* dist, int len, int k, int* index){
 	int i = 0;
@@ -11,6 +37,7 @@ float* kMinors(float* dist, int len, int k, int* index){
 	float aux_f;
 	float* minor = create_F_Vector(k);
 	int indexs[len];
+
 
 	for( i = 0 ; i < len ; i++ )
 		indexs[i] = i;
@@ -28,14 +55,16 @@ float* kMinors(float* dist, int len, int k, int* index){
   	  	}
   	}
 
-	for( i = 0 ; i < k ; i++ ){
+	minor[0] = dist[0];
+	index[0] = indexs[0];
+
+	for( i = 1 ; i < k ; i++ ){
 		minor[i] = dist[i]; 
 		index[i] = indexs[i];
 	}
 
 	return minor;
 }
-
 
 // ALOCA UM VETOR DE FLOATS DINAMICAMENTE
 float* create_F_Vector(int length){
@@ -93,7 +122,10 @@ float* abs_F_Vector(float *v, int len){
 	float* z = create_F_Vector(len);
 	int i = 0;
 	for( i = 0 ; i < len ; i++ ){
-		z[i] = fabs(v[i]);
+		if(v[i] < 0)
+			v[i] *= -1;
+		
+		z[i] = v[i];
 	}
 	return z;
 }

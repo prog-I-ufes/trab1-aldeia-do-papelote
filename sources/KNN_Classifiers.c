@@ -2,5 +2,5 @@
 #include <stdio.h>
 
 float Accuracy(int A, int T){
-    return 1.0;
+    return 100.0*A/T;
 }
