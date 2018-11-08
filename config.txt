@@ -1,13 +1,4 @@
 training/filmes_treino.csv
 tests/filmes_teste.csv
 predicts/
-3, C
-3, M, 0.5
-3, E
-5, E
-6, C
-7, M, 0.7
-9, M, 0.3
-9, E
-5, M, 1.5
-8, C
+2, E

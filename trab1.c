@@ -34,7 +34,7 @@ void runEuclidian(Tcsv_data* training_content, Tcsv_data* test_content, int k){
         *test_rotule = test_data[i][vet_len - 1];
         for( j = 0 ; j < k ; j++ ){
             training_rotules[j] = training_data[k_index[j]][vet_len - 1];
-            printf("index: %.2d | %d \n", k_index[j], training_rotules[j]);
+            printf("index: %.2d | rotulo treino: %d | rotulo test: %d\n", k_index[j], training_rotules[j], *test_rotule);
         }
         printf("\n");
     }
