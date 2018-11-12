@@ -20,7 +20,7 @@ int* abs_I_Vector(int *v, int len);
 // SOMATÓRIO DOS ELEMENTOS DO VETOR DE INTEIROS
 int sum_Elements_I_Vector(int *v, int len);
 // IMPRIME O VETOR NA TELA
-void print_Vector(int *v, int len);
+void print_Vector( *v, int len);
 
 // ALOCA UM VETOR COM OS K MAIORES ELEMENTOS
 double* kMinors(double* dist, int len, int k, int* index);

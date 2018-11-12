@@ -8,7 +8,7 @@
 void print_F_Vector(double *v, int len){
 	int i = 0;
 	for( i = 0 ; i < len ; i++ )
-		printf("[%f]\n", v[i]);
+		printf("[%.2f]\n", v[i]);
 }
 
 int recorrence(int* v, int len){
