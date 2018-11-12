@@ -7,184 +7,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void runEuclidian(Tcsv_data* training_content, Tcsv_data* test_content, int k){
-    int i = 0;
-    int j = 0;
-
-    double** training_data;
-    double** test_data;
-
-    /*Tconfusion confusion;
-    confusion.false_and_false = 0;
-    confusion.false_and_true = 0;
-    confusion.true_and_false = 0;
-    confusion.true_and_true = 0;
-    */
-    int correct = 0;
-
-    int* training_rotules = (int*) malloc(sizeof(int) * k);
-    int test_rotule = 0;
-
-    int vet_len = 0;
-
-    double* dist = (double*) malloc(sizeof(double) * training_content->map.lines);
-    double* k_minors;
-    int* k_index = malloc(sizeof(int) * k);
-
-   	training_data = splitNumbers(training_content, &vet_len);
-    test_data = splitNumbers(test_content, &vet_len);
-
-    for( i = 0 ; i < test_content->map.lines ; i++ ){
-        for( j = 0 ; j < training_content->map.lines ; j++ ){
-            dist[j] = euclidianDistance(test_data[i], training_data[j], vet_len - 1);
-        }
-        k_minors = kMinors(dist, training_content->map.lines, k, k_index);
-        test_rotule = test_data[i][vet_len - 1];
-        //printf("K menores:\n");
-        for( j = 0 ; j < k ; j++ ){
-            training_rotules[j] = training_data[k_index[j]][vet_len - 1];
-            test_rotule = test_data[i][vet_len - 1]; 
-        //    printf("[%d, %d] ", training_rotules[j], test_rotule);
-        }
-        //printf("o que era pra ser: %d, oque era: %d\n", recorrence(training_rotules, k) - 1 , test_rotule - 1);
-        if( (test_rotule) == recorrence(training_rotules, k)){
-            correct++;
-        }
-    }
-
-    printf("\nAcuracia %.2f\n", Accuracy(correct, test_content->map.lines));
-    
-    free_F_Vector(dist);
-    free_F_Vector(k_minors);
-    free_I_Vector(k_index);
-    free_I_Vector(training_rotules);
-
-    freedoubleMatrix(training_data, training_content->map.lines);
-    freedoubleMatrix(test_data, test_content->map.lines);
-}
-void runMinkowsky(Tcsv_data* training_content, Tcsv_data* test_content, int k, double r){
-    int i = 0;
-    int j = 0;
-
-    double** training_data;
-    double** test_data;
-
-    /*Tconfusion confusion;
-    confusion.false_and_false = 0;
-    confusion.false_and_true = 0;
-    confusion.true_and_false = 0;
-    confusion.true_and_true = 0;
-    */
-    int correct = 0;
-
-    int* training_rotules = (int*) malloc(sizeof(int) * k);
-    int test_rotule = 0;
-
-    int vet_len = 0;
-
-    double* dist = (double*) malloc(sizeof(double) * training_content->map.lines);
-    double* k_minors;
-    int* k_index = malloc(sizeof(int) * k);
-
-   	training_data = splitNumbers(training_content, &vet_len);
-    test_data = splitNumbers(test_content, &vet_len);
-
-    for( i = 0 ; i < test_content->map.lines ; i++ ){
-        for( j = 0 ; j < training_content->map.lines ; j++ ){
-            dist[j] = minkowskyDistance(test_data[i], training_data[j], vet_len - 1, r);
-        }
-        k_minors = kMinors(dist, training_content->map.lines, k, k_index);
-        test_rotule = test_data[i][vet_len - 1];
-        for( j = 0 ; j < k ; j++ ){
-            training_rotules[j] = training_data[k_index[j]][vet_len - 1];
-            test_rotule = test_data[i][vet_len - 1]; 
-        }
-
-        //printf("%d\n", recorrence(training_rotules, k) - 1);
-
-        if( (test_rotule) == recorrence(training_rotules, k)){
-            correct++;
-        }
-    }
-
-    printf("\nAcuracia %.2f\n", Accuracy(correct, test_content->map.lines));
-    
-    free_F_Vector(dist);
-    free_F_Vector(k_minors);
-    free_I_Vector(k_index);
-    free_I_Vector(training_rotules);
-
-    freedoubleMatrix(training_data, training_content->map.lines);
-    freedoubleMatrix(test_data, test_content->map.lines);
-}
-
-void runChebyshev(Tcsv_data* training_content, Tcsv_data* test_content, int k){
-    int i = 0;
-    int j = 0;
-
-    double** training_data;
-    double** test_data;
-
-    /*Tconfusion confusion;
-    confusion.false_and_false = 0;
-    confusion.false_and_true = 0;
-    confusion.true_and_false = 0;
-    confusion.true_and_true = 0;
-    */
-    int correct = 0;
-
-    int* training_rotules = (int*) malloc(sizeof(int) * k);
-    int test_rotule = 0;
-
-    int vet_len = 0;
-
-    double* dist = (double*) malloc(sizeof(double) * training_content->map.lines);
-    double* k_minors;
-    int* k_index = malloc(sizeof(int) * k);
-
-   	training_data = splitNumbers(training_content, &vet_len);
-    test_data = splitNumbers(test_content, &vet_len);
-
-    for( i = 0 ; i < test_content->map.lines ; i++ ){
-        for( j = 0 ; j < training_content->map.lines ; j++ ){
-            dist[j] = chebyshevDistance(test_data[i], training_data[j], vet_len - 1);
-        }
-        k_minors = kMinors(dist, training_content->map.lines, k, k_index);
-        test_rotule = test_data[i][vet_len - 1];
-        for( j = 0 ; j < k ; j++ ){
-            training_rotules[j] = training_data[k_index[j]][vet_len - 1];
-            test_rotule = test_data[i][vet_len - 1]; 
-        }
-        //printf("%d\n", recorrence(training_rotules, k) - 1);
-        if( (test_rotule) == recorrence(training_rotules, k)){
-            correct++;
-        }
-    }
-
-    printf("\nAcuracia %.2f\n", Accuracy(correct, test_content->map.lines));
-    
-    free_F_Vector(dist);
-    free_F_Vector(k_minors);
-    free_I_Vector(k_index);
-    free_I_Vector(training_rotules);
-
-    freedoubleMatrix(training_data, training_content->map.lines);
-    freedoubleMatrix(test_data, test_content->map.lines);
-}
-
 void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data* test_content){
     int k = 0;
 
     for( k = 0 ; k < commands->map.lines ; k++ ){
         switch(commands->data[k].distance){
             case 'E':
-                runEuclidian(training_content, test_content, commands->data[k].k);
+                //runEuclidian(training_content, test_content, commands->data[k].k);
                 break;
             case 'M':
-                runMinkowsky(training_content, test_content, commands->data[k].k, commands->data[k].r);
+                //runMinkowsky(training_content, test_content, commands->data[k].k, commands->data[k].r);
                 break;
             case 'C':
-                runChebyshev(training_content, test_content, commands->data[k].k);
+                //runChebyshev(training_content, test_content, commands->data[k].k);
                 break;
         }
     }

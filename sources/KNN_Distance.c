@@ -4,35 +4,32 @@
 
 // CALCULA A DISTANCIA EUCLIDIANA
 double euclidianDistance(double *v, double *w, int len){
-	double *z;
-	double *z_square;
+	double aux = 0;
 	double distance = 0;
+	int i = 0;
 
-	z = subtract_F_Vector(v, w, len);
-	z_square = square_F_Vector(z, len);
-	free_F_Vector(z);
+	for( i = 0 ; i < len ; i++ ){
+		aux = v[i] - w[i];
+		aux *= aux;
+		distance += aux;
+	}
 
-	distance = sqrt(sum_Elements_F_Vector(z_square, len));
-	free_F_Vector(z_square);
+	sqrt(distance);
 
 	return distance;
 }
 // CALCULA A DISTANCIA DE MINKOWSKY
 double minkowskyDistance(double *v, double *w, int len, double r){
-	double *z = create_F_Vector(len);
+	double aux = 0;
 	double distance = 0;
 	int i = 0;
 
 	for( i = 0 ; i < len ; i++ ){
-		z[i] = v[i] - w[i];
-		if( z[i] < 0 ) z[i] *= -1;
-		z[i] = pow(z[i], r);
-		distance += z[i];
+		aux = sqrt(pow(v[i] - w[i], 2));
+		distance += pow(aux, r);
 	}
 	
 	distance = pow(distance, 1/r);
-
-	free_F_Vector(z);
 
 	return distance;
 }
@@ -43,8 +40,7 @@ double chebyshevDistance(double *v, double *w, int len){
 	int i = 0;
 
 	for( i = 0 ; i < len ; i++ ){
-		aux = v[i] - w[i];
-		if( aux < 0 ) aux *= -1;
+		aux = sqrt(pow(v[i] - w[i], 2));
 		if( aux > distance ) distance = aux;
 	}
 	
