@@ -2,10 +2,10 @@
 #define _H_DISTANCE
 
 // CALCULA A DISTANCIA EUCLIDIANA
-float euclidianDistance(float *v, float *w, int len);
+double euclidianDistance(double *v, double *w, int len);
 // CALCULA A DISTANCIA DE MINKOWSKY
-float minkowskyDistance(float *v, float *w, int len, int r);
+double minkowskyDistance(double *v, double *w, int len, double r);
 // CALCULA D SITANCIA PELA SIMILARIDADE DOS COSSENOS
-float chebyshevDistance(float *v, float *w, int len);
+double chebyshevDistance(double *v, double *w, int len);
 
 #endif

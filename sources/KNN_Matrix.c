@@ -36,13 +36,13 @@ char** create_R_CharacterMatrix(Tcsv_map map){
 
 	return mat;
 }
-// ALOCA UMA MATRIZ DE FLOATS DINAMICAMENTE
-float **createFloatMatrix(TDimension dim){
+// ALOCA UMA MATRIZ DE doubleS DINAMICAMENTE
+double **createdoubleMatrix(TDimension dim){
 	int i = 0;
-	float **mat = (float**) malloc(sizeof(float*) * dim.x);
+	double **mat = (double**) malloc(sizeof(double*) * dim.x);
 	
 	for( i = 0 ; i < dim.x ; i++ )
-		mat[i] = (float*) malloc(sizeof(float) * dim.y);
+		mat[i] = (double*) malloc(sizeof(double) * dim.y);
 	
 	return mat;
 }
@@ -60,8 +60,8 @@ void freeCharacterMatrix(char **mat, int lines){
 		free(mat[i]);
 	free(mat);
 }
-// LIBERA UMA MATRIZ DE FLOATS DA MEMORIA
-void freeFloatMatrix(float** mat, int lines){
+// LIBERA UMA MATRIZ DE doubleS DA MEMORIA
+void freedoubleMatrix(double** mat, int lines){
 	int i = 0;
 	for( i = 0 ; i < lines ; i++ )
 		free(mat[i]);
@@ -79,7 +79,7 @@ void printMatrix(int **mat, TDimension dim){
 	}
 }
 // OFAEKOFKEFAE
-float **splitNumbers(Tcsv_data *csv, int *counter){
+double **splitNumbers(Tcsv_data *csv, int *counter){
 	int i = 0;
 	int j = 0;
 	*counter = 1;
@@ -87,7 +87,7 @@ float **splitNumbers(Tcsv_data *csv, int *counter){
 	char* cpy;
 	char** pch = (char**) malloc(sizeof(char*) * csv->map.lines);
 
-	float** numbers = (float**) malloc(sizeof(float*) * csv->map.lines);
+	double** numbers = (double**) malloc(sizeof(double*) * csv->map.lines);
 
 	for( i = 0 ; i < csv->map.length_line[0] ; i++)
 		if((character = csv->data[0][i]) == ',') (*counter)++;
@@ -97,7 +97,7 @@ float **splitNumbers(Tcsv_data *csv, int *counter){
 		strcpy(cpy, csv->data[i]);
 
 		j = 0;
-		numbers[i] = (float*) malloc(sizeof(float) * (*counter));
+		numbers[i] = (double*) malloc(sizeof(double) * (*counter));
 		pch[i] = strtok (cpy,",");
 		numbers[i][j] = atof(pch[i]);
 		j++;

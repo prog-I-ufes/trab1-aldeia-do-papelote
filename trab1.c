@@ -11,15 +11,15 @@ void runEuclidian(Tcsv_data* training_content, Tcsv_data* test_content, int k){
     int i = 0;
     int j = 0;
 
-    float** training_data;
-    float** test_data;
+    double** training_data;
+    double** test_data;
 
-    Tconfusion confusion;
+    /*Tconfusion confusion;
     confusion.false_and_false = 0;
     confusion.false_and_true = 0;
     confusion.true_and_false = 0;
     confusion.true_and_true = 0;
-    
+    */
     int correct = 0;
 
     int* training_rotules = (int*) malloc(sizeof(int) * k);
@@ -27,8 +27,8 @@ void runEuclidian(Tcsv_data* training_content, Tcsv_data* test_content, int k){
 
     int vet_len = 0;
 
-    float* dist = (float*) malloc(sizeof(float) * training_content->map.lines);
-    float* k_minors;
+    double* dist = (double*) malloc(sizeof(double) * training_content->map.lines);
+    double* k_minors;
     int* k_index = malloc(sizeof(int) * k);
 
    	training_data = splitNumbers(training_content, &vet_len);
@@ -40,11 +40,13 @@ void runEuclidian(Tcsv_data* training_content, Tcsv_data* test_content, int k){
         }
         k_minors = kMinors(dist, training_content->map.lines, k, k_index);
         test_rotule = test_data[i][vet_len - 1];
+        //printf("K menores:\n");
         for( j = 0 ; j < k ; j++ ){
             training_rotules[j] = training_data[k_index[j]][vet_len - 1];
             test_rotule = test_data[i][vet_len - 1]; 
+        //    printf("[%d, %d] ", training_rotules[j], test_rotule);
         }
-        //printf("%d\n", recorrence(training_rotules, k) - 1);
+        //printf("o que era pra ser: %d, oque era: %d\n", recorrence(training_rotules, k) - 1 , test_rotule - 1);
         if( (test_rotule) == recorrence(training_rotules, k)){
             correct++;
         }
@@ -57,22 +59,22 @@ void runEuclidian(Tcsv_data* training_content, Tcsv_data* test_content, int k){
     free_I_Vector(k_index);
     free_I_Vector(training_rotules);
 
-    freeFloatMatrix(training_data, training_content->map.lines);
-    freeFloatMatrix(test_data, test_content->map.lines);
+    freedoubleMatrix(training_data, training_content->map.lines);
+    freedoubleMatrix(test_data, test_content->map.lines);
 }
-void runMinkowsky(Tcsv_data* training_content, Tcsv_data* test_content, int k, int r){
+void runMinkowsky(Tcsv_data* training_content, Tcsv_data* test_content, int k, double r){
     int i = 0;
     int j = 0;
 
-    float** training_data;
-    float** test_data;
+    double** training_data;
+    double** test_data;
 
-    Tconfusion confusion;
+    /*Tconfusion confusion;
     confusion.false_and_false = 0;
     confusion.false_and_true = 0;
     confusion.true_and_false = 0;
     confusion.true_and_true = 0;
-    
+    */
     int correct = 0;
 
     int* training_rotules = (int*) malloc(sizeof(int) * k);
@@ -80,8 +82,8 @@ void runMinkowsky(Tcsv_data* training_content, Tcsv_data* test_content, int k, i
 
     int vet_len = 0;
 
-    float* dist = (float*) malloc(sizeof(float) * training_content->map.lines);
-    float* k_minors;
+    double* dist = (double*) malloc(sizeof(double) * training_content->map.lines);
+    double* k_minors;
     int* k_index = malloc(sizeof(int) * k);
 
    	training_data = splitNumbers(training_content, &vet_len);
@@ -112,23 +114,23 @@ void runMinkowsky(Tcsv_data* training_content, Tcsv_data* test_content, int k, i
     free_I_Vector(k_index);
     free_I_Vector(training_rotules);
 
-    freeFloatMatrix(training_data, training_content->map.lines);
-    freeFloatMatrix(test_data, test_content->map.lines);
+    freedoubleMatrix(training_data, training_content->map.lines);
+    freedoubleMatrix(test_data, test_content->map.lines);
 }
 
 void runChebyshev(Tcsv_data* training_content, Tcsv_data* test_content, int k){
     int i = 0;
     int j = 0;
 
-    float** training_data;
-    float** test_data;
+    double** training_data;
+    double** test_data;
 
-    Tconfusion confusion;
+    /*Tconfusion confusion;
     confusion.false_and_false = 0;
     confusion.false_and_true = 0;
     confusion.true_and_false = 0;
     confusion.true_and_true = 0;
-    
+    */
     int correct = 0;
 
     int* training_rotules = (int*) malloc(sizeof(int) * k);
@@ -136,8 +138,8 @@ void runChebyshev(Tcsv_data* training_content, Tcsv_data* test_content, int k){
 
     int vet_len = 0;
 
-    float* dist = (float*) malloc(sizeof(float) * training_content->map.lines);
-    float* k_minors;
+    double* dist = (double*) malloc(sizeof(double) * training_content->map.lines);
+    double* k_minors;
     int* k_index = malloc(sizeof(int) * k);
 
    	training_data = splitNumbers(training_content, &vet_len);
@@ -166,8 +168,8 @@ void runChebyshev(Tcsv_data* training_content, Tcsv_data* test_content, int k){
     free_I_Vector(k_index);
     free_I_Vector(training_rotules);
 
-    freeFloatMatrix(training_data, training_content->map.lines);
-    freeFloatMatrix(test_data, test_content->map.lines);
+    freedoubleMatrix(training_data, training_content->map.lines);
+    freedoubleMatrix(test_data, test_content->map.lines);
 }
 
 void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data* test_content){

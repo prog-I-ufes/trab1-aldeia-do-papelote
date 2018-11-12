@@ -3,46 +3,50 @@
 #include <math.h>
 
 // CALCULA A DISTANCIA EUCLIDIANA
-float euclidianDistance(float *v, float *w, int len){
-	float *z;
-	float *z_square;
-	float distance = 0;
+double euclidianDistance(double *v, double *w, int len){
+	double *z;
+	double *z_square;
+	double distance = 0;
 
 	z = subtract_F_Vector(v, w, len);
 	z_square = square_F_Vector(z, len);
 	free_F_Vector(z);
+
 	distance = sqrt(sum_Elements_F_Vector(z_square, len));
 	free_F_Vector(z_square);
 
 	return distance;
 }
 // CALCULA A DISTANCIA DE MINKOWSKY
-float minkowskyDistance(float *v, float *w, int len, int r){
-	float *z;
-	float *z_aux;
-	float distance = 0;
+double minkowskyDistance(double *v, double *w, int len, double r){
+	double *z = create_F_Vector(len);
+	double distance = 0;
+	int i = 0;
 
-	z = subtract_F_Vector(v, w, len);
-	z_aux = abs_F_Vector(z, len);
-	free_F_Vector(z);
-	z = pow_F_Vector(z_aux, len, r );
-	free_F_Vector(z_aux);
-	distance = pow(sum_Elements_F_Vector(z, len), 1.0/r);
+	for( i = 0 ; i < len ; i++ ){
+		z[i] = v[i] - w[i];
+		if( z[i] < 0 ) z[i] *= -1;
+		z[i] = pow(z[i], r);
+		distance += z[i];
+	}
+	
+	distance = pow(distance, 1/r);
+
 	free_F_Vector(z);
 
 	return distance;
 }
 // CALCULA D DISTANCIA DE CHEBYSHEV
-float chebyshevDistance(float *v, float *w, int len){
-	float *z;
-	float *z_aux;
-	float distance;
+double chebyshevDistance(double *v, double *w, int len){
+	double aux = 0;
+	double distance = 0;
+	int i = 0;
 
-	z = subtract_F_Vector(v, w, len);
-	z_aux = abs_F_Vector(z, len);
-	free_F_Vector(z);
-	distance = max_F_Vector(z_aux, len);
-	free_F_Vector(z_aux);
-
+	for( i = 0 ; i < len ; i++ ){
+		aux = v[i] - w[i];
+		if( aux < 0 ) aux *= -1;
+		if( aux > distance ) distance = aux;
+	}
+	
 	return distance;
 }

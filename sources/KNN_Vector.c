@@ -30,12 +30,12 @@ int recorrence(int* v, int len){
 	return elem;
 }
 
-float* kMinors(float* dist, int len, int k, int* index){
+double* kMinors(double* dist, int len, int k, int* index){
 	int i = 0;
 	int j = 0;
 	int aux;
-	float aux_f;
-	float* minor = create_F_Vector(k);
+	double aux_f;
+	double* minor = create_F_Vector(k);
 	int indexs[len];
 
 
@@ -55,10 +55,7 @@ float* kMinors(float* dist, int len, int k, int* index){
   	  	}
   	}
 
-	minor[0] = dist[0];
-	index[0] = indexs[0];
-
-	for( i = 1 ; i < k ; i++ ){
+	for( i = 0 ; i < k ; i++ ){
 		minor[i] = dist[i]; 
 		index[i] = indexs[i];
 	}
@@ -66,16 +63,16 @@ float* kMinors(float* dist, int len, int k, int* index){
 	return minor;
 }
 
-// ALOCA UM VETOR DE FLOATS DINAMICAMENTE
-float* create_F_Vector(int length){
-	float *v = (float*) malloc(sizeof(float) * length);
+// ALOCA UM VETOR DE doubleS DINAMICAMENTE
+double* create_F_Vector(int length){
+	double *v = (double*) malloc(sizeof(double) * length);
 	return v;
 }
-// LIBERA UM VETOR DE FLOATS DA MEMORIA
-void free_F_Vector(float* v){ free(v); }
+// LIBERA UM VETOR DE doubleS DA MEMORIA
+void free_F_Vector(double* v){ free(v); }
 // SOMA O VETOR V COM O VETOR W
-float* sum_F_Vector(float *v, float *w, int len){
-	float* z = create_F_Vector(len);
+double* sum_F_Vector(double *v, double *w, int len){
+	double* z = create_F_Vector(len);
 	int i = 0;
 	for( i = 0 ; i < len ; i++ ){
 		z[i] = v[i] + w[i];
@@ -83,34 +80,34 @@ float* sum_F_Vector(float *v, float *w, int len){
 	return z;
 }
 // SUBTRAI O VETOR W DO VETOR V
-float* subtract_F_Vector(float *v, float *w, int len){
-	float* z = create_F_Vector(len);
+double* subtract_F_Vector(double *v, double *w, int len){
+	double* z = create_F_Vector(len);
 	int i = 0;
 	for( i = 0 ; i < len ; i++ ){
 		z[i] = v[i] - w[i];
 	}
 	return z;
 }
-// PRODUTO floatERNO ENTRE O VETOR V E O VETOR W
-float product_F_Vector(float *v, float *w, int len){
+// PRODUTO doubleERNO ENTRE O VETOR V E O VETOR W
+double product_F_Vector(double *v, double *w, int len){
 	int i = 0;
-	float product = 0;
+	double product = 0;
 	for( i = 0 ; i < len ; i++ )
 		product += v[i] * w[i];
 	return product;
 }
 // CRIA UM VETOR QUE É O QUADRADO DE V
-float* square_F_Vector(float *v, int len){
-	float* z = create_F_Vector(len);
+double* square_F_Vector(double *v, int len){
+	double* z = create_F_Vector(len);
 	int i = 0;
 	for( i = 0 ; i < len ; i++ ){
-		z[i] = v[i]*v[i];
+		z[i] = pow(v[i],2);
 	}
 	return z;
 }
 // CRIA UM VETOR QUE É OS ELEMENTOS DE V ELEVADOS A N
-float* pow_F_Vector(float *v, int len, float n){
-	float* z = create_F_Vector(len);
+double* pow_F_Vector(double *v, int len, double n){
+	double* z = create_F_Vector(len);
 	int i = 0;
 	for( i = 0 ; i < len ; i++ ){
 		z[i] = pow(v[i], n);
@@ -118,8 +115,8 @@ float* pow_F_Vector(float *v, int len, float n){
 	return z;
 }
 // CRIA UM VETOR QUE É O VALOR ABSOLUTO DOS ELEMENTOS
-float* abs_F_Vector(float *v, int len){
-	float* z = create_F_Vector(len);
+double* abs_F_Vector(double *v, int len){
+	double* z = create_F_Vector(len);
 	int i = 0;
 	for( i = 0 ; i < len ; i++ ){
 		if(v[i] < 0)
@@ -129,20 +126,20 @@ float* abs_F_Vector(float *v, int len){
 	}
 	return z;
 }
-// SOMATÓRIO DOS ELEMENTOS DO VETOR DE floatEIROS
-float sum_Elements_F_Vector(float *v, int len){
+// SOMATÓRIO DOS ELEMENTOS DO VETOR DE doubleEIROS
+double sum_Elements_F_Vector(double *v, int len){
 	int i = 0;
-	float sum = 0;
+	double sum = 0;
 
 	for( i = 0 ; i < len ; i++ )
 		sum += v[i];
 
 	return sum;
 }
-// RETORNA O MAXIMO ELEMENTO EM UM VETOR DE FLOATS
-float max_F_Vector(float *v, int len){
+// RETORNA O MAXIMO ELEMENTO EM UM VETOR DE doubleS
+double max_F_Vector(double *v, int len){
 	int i = 0;
-	float max = v[0];
+	double max = v[0];
 
 	for( i = 1 ; i < len ; i++ )
 		if(max < v[i]) max = v[i];
