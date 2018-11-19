@@ -17,7 +17,8 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 	int correct = 0;
 
 	int test_rotule = 0;
-	int *knn_rotule = create_I_Vector(training_content->map.lines);
+	int *knn_rotule;
+	int *index;
 
 	double acuracia = 0;
 
@@ -27,12 +28,16 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 	double *dist = create_F_Vector(training_content->map.lines);
 
     for( k = 0 ; k < commands->map.lines - 1 ; k++ ){
+		index = create_I_Vector(commands->data[k].k);
+		knn_rotule = create_I_Vector(commands->data[k].k);
+
 		printf("Command: %d, %c, %.2f\n", commands->data[k].k, commands->data[k].distance, commands->data[k].r);
 		correct = 0;
                     
         for( i = 0 ; i < test_content->map.lines ; i++ ){
 			// SALVA O ROTULO DE TESTE REAL
 			test_rotule = m_test[i][vet_len - 1];
+
 			// PERCORRE TODAS AS LINHAS DO TREINO COMPARANDO
 			// A DISTANCIA DO TESTE COM A DO TREINO
 			switch(commands->data[k].distance){
@@ -54,19 +59,32 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 			}
 			
 		}
+
+		kMinors(dist, training_content->map.lines, commands->data[k].k, index);
+
+		printf("\n KNN: ");
+		for( i = 0 ; i < commands->data[k].k ; i++){
+			knn_rotule[i] = m_train[index[i]][vet_len - 1];
+			printf("[%d na %d] ", index[i], knn_rotule[i]);
+		}
+		printf("\n");
 		
-		kMinors(dist, training_content->map.lines, commands->data[k].k, knn_rotule);
-		if( recorrence(knn_rotule, commands->data[k].k) == test_rotule ) correct++;
+		for( i = 0 ; i < commands->data[k].k ; i++ )
+			printf("%d ", recorrence(knn_rotule, commands->data[k].k));
+		printf("\n");
 		
 		acuracia = Accuracy(correct, test_content->map.lines);
 		printf("Acuracia %f\n", acuracia);
     
+		free(index);
+		free(knn_rotule);
 	}
 
 	freedoubleMatrix(m_test, test_content->map.lines);
 	freedoubleMatrix(m_train, training_content->map.lines);
+
 	free(dist);
-	free(knn_rotule);
+	
 	
     printf("\n");
 
