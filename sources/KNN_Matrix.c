@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
-// ALOCA UMA MATRIZ DE INTEIROS DINAMICAMENTE
+// Aloca uma matriz de inteiros dinamicamente
 int **createMatrix(TDimension dim){
 	int i = 0;
 	int **mat = (int**) malloc(sizeof(int*) * dim.x);
@@ -14,7 +14,8 @@ int **createMatrix(TDimension dim){
 
 	return mat;
 }
-// ALOCA UMA MATRIZ DE CARACTERES DINAMICAMENTE
+
+// Aloca uma matriz de caracteres dinamicamente
 char **createCharacterMatrix(TDimension dim){
 	int i = 0;
 	char **mat = (char**) malloc(sizeof(char*) * dim.x);
@@ -25,8 +26,10 @@ char **createCharacterMatrix(TDimension dim){
 		
 	return mat;
 }
-// ALOCA UMA MATRIZ DE CHAR COM LINHAS DE TAMANHO VARIADOS
-char** create_R_CharacterMatrix(Tcsv_map map){
+
+// Aloca uma matriz de caracteres dinamicamente
+// com linhas de tamanho variado
+char **create_R_CharacterMatrix(Tcsv_map map){
 	int i = 0;
 	char **mat = (char**) malloc(sizeof(char*) * map.lines);
 
@@ -36,7 +39,8 @@ char** create_R_CharacterMatrix(Tcsv_map map){
 
 	return mat;
 }
-// ALOCA UMA MATRIZ DE doubleS DINAMICAMENTE
+
+// Aloca uma matriz de doubles dinamicamente
 double **createdoubleMatrix(TDimension dim){
 	int i = 0;
 	double **mat = (double**) malloc(sizeof(double*) * dim.x);
@@ -46,28 +50,32 @@ double **createdoubleMatrix(TDimension dim){
 	
 	return mat;
 }
-// LIBERA UMA MATRIZ DE INTEIROS DA MEMORIA
+
+// Libera uma matriz de inteiros da memoria
 void freeMatrix(int **mat, int lines){
 	int i = 0;
 	for( i = 0 ; i < lines ; i++ )
 		free(mat[i]);
 	free(mat);
 }
-// LIBERA UMA MATRIZ DE CARACTERES DA MEMORIA
-void freeCharacterMatrix(char **mat, int lines){
+
+// Libera uma matriz de caracteres da memoria
+void freeCharacterMatrix(char** mat, int lines){
 	int i = 0;
 	for( i = 0 ; i < lines ; i++ )
 		free(mat[i]);
 	free(mat);
 }
-// LIBERA UMA MATRIZ DE doubleS DA MEMORIA
+
+// Libera uma matriz de doubles da memoria
 void freedoubleMatrix(double** mat, int lines){
 	int i = 0;
 	for( i = 0 ; i < lines ; i++ )
 		free(mat[i]);
 	free(mat);
 }
-// IMPRIME A MATRIZ NA TELA
+
+// Imprime uma matriz de inteiros na tela
 void printMatrix(int **mat, TDimension dim){
 	int i = 0;
 	int j = 0;
@@ -78,7 +86,9 @@ void printMatrix(int **mat, TDimension dim){
 		printf("\n");
 	}
 }
-// OFAEKOFKEFAE
+
+// Transforma a matriz de caracteres presente na estrutura
+// Tcsv_data em uma matriz de doubles
 double **splitNumbers(Tcsv_data *csv, int *counter){
 	int i = 0;
 	int j = 0;
@@ -116,7 +126,9 @@ double **splitNumbers(Tcsv_data *csv, int *counter){
 	
 	return numbers;
 }
-// aoerkoaerk
+
+// Transforma uma instrução lida em caracteres do arquivo
+// config.txt pra uma estrutura do tipo Tcommand
 Tcommand splitCommands(char* word){
 	Tcommand command;
 	command.r = 0;

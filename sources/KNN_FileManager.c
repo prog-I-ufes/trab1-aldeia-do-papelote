@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-// ABRE UM ARQUIVO DE ACORDO COM O MODO
+// Abre um arquivo de acordo com o modo(char mode)
 FILE* openFile(char* name, char mode){
 	switch( mode ){
 		case 'w':
@@ -19,9 +19,11 @@ FILE* openFile(char* name, char mode){
 		break;
 	}
 }
-// FECHA UM ARQUIVO
+
+// Fecha um arquivo
 void closeFile(FILE* f){ fclose(f); }
-// LE UMA LINHA DE UM ARQUIVO
+
+// Le uma linha de um arquivo
 char* readLineFile(FILE* f){
 	char* path;
 	char static_path[100];
@@ -34,8 +36,10 @@ char* readLineFile(FILE* f){
 	
 	return path;
 }
-// LE UM ARQUIVO INTEIRO E ARMAZENA NUM VETOR DE STRINGS
-Tcsv_data *readFileToMatrix(char* path){
+
+// Le um arquivo inteiro e armazena seus dados
+// na estrutura Tcsv_data
+Tcsv_data* readFileToMatrix(char* path){
 	Tcsv_data *csv = (Tcsv_data*) malloc(sizeof(Tcsv_data));
 	
 	int number = 0;
@@ -87,6 +91,8 @@ Tcsv_data *readFileToMatrix(char* path){
 	return csv;
 }
 
+// Le um arquivo de instrucoes e armazena seus dados
+// na estrutura Tcommand_data
 Tcommand_data* readInstructions(char* path){
 	Tcommand_data *data = (Tcommand_data*) malloc(sizeof(Tcommand_data));
 
@@ -156,7 +162,8 @@ Tcommand_data* readInstructions(char* path){
 	
 	return data;
 }
-// OMITE N LINHAS DA LEITURA DO ARQUIVO
+
+// Omite n linhas da leitura de um arquivo
 void omitLines(FILE* f, int n){
 	int i = 0;
 	char* word;
@@ -164,5 +171,4 @@ void omitLines(FILE* f, int n){
 		word = readLineFile(f);
 		free(word);
 	}
-
 }
