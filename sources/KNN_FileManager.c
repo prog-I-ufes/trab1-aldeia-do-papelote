@@ -49,22 +49,26 @@ Tcsv_data* readFileToMatrix(char* path){
 
 	Tcsv_map map;
 
+	// Abre o arquivo
 	FILE* f = openFile(path, 'r');
 
+	// Conta o numero de linhas
 	if(f != NULL)
 		while((character=fgetc(f)) != EOF){
 			if(character == '\n') number++;
 		}
 
+	// Reabre o arquivo
 	closeFile(f);
 	f = openFile(path, 'r');
 
+	// Guarda o numero de linhas
 	map.lines = number;
-
 	map.length_line = create_I_Vector(map.lines);
 
 	number = 0;
 
+	// Guarda o tamanho de cada linha + 1
 	if(f != NULL)
 		while((character=fgetc(f)) != EOF){
 			if(character != '\n') length++;
@@ -75,13 +79,15 @@ Tcsv_data* readFileToMatrix(char* path){
 			}
 		}
 
+	// Reabre o arquivo
 	closeFile(f);
+	f = openFile(path, 'r');
 
+	// Guarda os dados de mapeamento
 	csv->map = map;
 	csv->data = create_R_CharacterMatrix(csv->map);
-	
-	f = openFile(path, 'r');
-	
+		
+	// Leitura de cada linha
 	for( i = 0 ; i < csv->map.lines ; i++ ){
 		fscanf(f, "%s", csv->data[i]);
 	}

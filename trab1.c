@@ -26,49 +26,42 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 
 	double *dist = create_F_Vector(training_content->map.lines);
 
-    for( k = 0 ; k < commands->map.lines ; k++ ){
+    for( k = 0 ; k < commands->map.lines - 1 ; k++ ){
+		printf("Command: %d, %c, %.2f\n", commands->data[k].k, commands->data[k].distance, commands->data[k].r);
 		correct = 0;
-        switch(commands->data[k].distance){
-            case 'E':
-                for( i = 0 ; i < test_content->map.lines ; i++ ){
-					// SALVA O ROTULO DE TESTE REAL
-					test_rotule = m_test[i][vet_len - 1];
-					// PERCORRE TODAS AS LINHAS DO TREINO COMPARANDO
-					// A DISTANCIA DO TESTE COM A DO TREINO
+                    
+        for( i = 0 ; i < test_content->map.lines ; i++ ){
+			// SALVA O ROTULO DE TESTE REAL
+			test_rotule = m_test[i][vet_len - 1];
+			// PERCORRE TODAS AS LINHAS DO TREINO COMPARANDO
+			// A DISTANCIA DO TESTE COM A DO TREINO
+			switch(commands->data[k].distance){
+				case 'E':
 					for( j = 0 ; j < training_content->map.lines ; j++ ){
 						dist[j] = euclidianDistance(m_test[i], m_train[j], vet_len - 1);
 					}
-					//kMinors(dist, training_content->map.lines, commands->data[k].k, knn_rotule);
-					//if( recorrence(knn_rotule, commands->data[k].k) == test_rotule ) correct++;
-				}
-				//acuracia = Accuracy(correct, test_content->map.lines);
-				printf("Acuracia %f\n", acuracia);
-                break;
-            case 'M':
-                for( i = 0 ; i < test_content->map.lines ; i++ ){
-					for( j = 0 ; j < training_content->map.lines ; j++ ){
-						dist[j] = minkowskyDistance(m_test[i], m_train[j], vet_len -1, commands->data[k].r);
+					break;
+				case 'M':
+					for( j = 0 ; j < training_content->map.lines ; j++){
+						dist[j] = minkowskyDistance(m_test[i], m_train[j], vet_len - 1, commands->data[k].r);
 					}
-					//kMinors(dist, training_content->map.lines, commands->data[k].k, knn_rotule);
-					//if( recorrence(knn_rotule, commands->data[k].k) == test_rotule ) correct++;
-				}
-				//acuracia = Accuracy(correct, test_content->map.lines);
-				printf("Acuracia %f\n", acuracia);
-                break;
-            case 'C':
-                for( i = 0 ; i < test_content->map.lines ; i++ ){
-					for( j = 0 ; j < training_content->map.lines ; j++ ){
-						dist[j] = chebyshevDistance(m_test[i], m_train[j], vet_len -1);
+					break;
+				case 'C':
+					for( j = 0 ; j < training_content->map.lines ; j++){
+						dist[j] = chebyshevDistance(m_test[i], m_train[j], vet_len - 1);
 					}
-					//kMinors(dist, training_content->map.lines, commands->data[k].k, knn_rotule);
-					//if( recorrence(knn_rotule, commands->data[k].k) == test_rotule ) correct++;
-				}
-				//acuracia = Accuracy(correct, test_content->map.lines);
-				printf("Acuracia %f\n", acuracia);
-                break;
-        }
+					break;
+			}
+			
+		}
 		
-    }
+		kMinors(dist, training_content->map.lines, commands->data[k].k, knn_rotule);
+		if( recorrence(knn_rotule, commands->data[k].k) == test_rotule ) correct++;
+		
+		acuracia = Accuracy(correct, test_content->map.lines);
+		printf("Acuracia %f\n", acuracia);
+    
+	}
 
 	freedoubleMatrix(m_test, test_content->map.lines);
 	freedoubleMatrix(m_train, training_content->map.lines);
