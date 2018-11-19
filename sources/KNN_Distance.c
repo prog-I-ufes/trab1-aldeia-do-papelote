@@ -28,9 +28,7 @@ double euclidianDistance(double *v, double *w, int len){
 		distance += aux;
 	}
 
-	sqrt(distance);
-
-	return distance;
+	return sqrt(distance);
 }
 
 // Calcula a distancia de minkowsky entre dois vetores
@@ -44,7 +42,7 @@ double minkowskyDistance(double *v, double *w, int len, double r){
 		distance += pow(aux, r);
 	}
 	
-	distance = pow(distance, 1/r);
+	distance = pow(distance, 1.0/r);
 
 	return distance;
 }

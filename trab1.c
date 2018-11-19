@@ -20,11 +20,11 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 	int *knn_rotule;
 	int *index;
 
-	double acuracia = 0;
+	float acuracia = 0;
 
 	double **m_test = splitNumbers(test_content, &vet_len);
 	double **m_train = splitNumbers(training_content, &vet_len);
-
+	
 	double *dist = create_F_Vector(training_content->map.lines);
 
     for( k = 0 ; k < commands->map.lines - 1 ; k++ ){
@@ -57,24 +57,23 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 					}
 					break;
 			}
+
+			kMinors(dist, training_content->map.lines, commands->data[k].k, index);
 			
+			for( j = 0 ; j < commands->data[k].k ; j++){
+				knn_rotule[j] = m_train[index[j]][vet_len - 1];
+			}
+
+			if( recorrence(knn_rotule, commands->data[k].k) == test_rotule )
+				correct++;
 		}
 
-		kMinors(dist, training_content->map.lines, commands->data[k].k, index);
-
-		printf("\n KNN: ");
-		for( i = 0 ; i < commands->data[k].k ; i++){
-			knn_rotule[i] = m_train[index[i]][vet_len - 1];
-			printf("[%d na %d] ", index[i], knn_rotule[i]);
-		}
-		printf("\n");
-		
-		for( i = 0 ; i < commands->data[k].k ; i++ )
-			printf("%d ", recorrence(knn_rotule, commands->data[k].k));
-		printf("\n");
-		
 		acuracia = Accuracy(correct, test_content->map.lines);
-		printf("Acuracia %f\n", acuracia);
+		printf("acuracia: %f\n", acuracia);
+		
+		
+		
+		
     
 		free(index);
 		free(knn_rotule);

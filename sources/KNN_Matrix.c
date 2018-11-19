@@ -121,7 +121,7 @@ double **splitNumbers(Tcsv_data *csv, int *counter){
 
 		free(cpy);
 	}
-
+	
 	freeCharacterMatrix(pch, csv->map.lines);
 	
 	return numbers;

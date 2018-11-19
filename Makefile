@@ -1,5 +1,5 @@
 all: trab1.c KNN_Vector.o KNN_Dimension.o KNN_Classifiers.o KNN_Matrix.o KNN_Distance.o KNN_FileManager.o
-	gcc -Wall trab1.c -o trab1 KNN_Vector.o KNN_Dimension.o KNN_Classifiers.o KNN_Matrix.o KNN_Distance.o KNN_FileManager.o -lm -g && make clean;
+	gcc -Wall trab1.c -o trab1 KNN_Vector.o KNN_Dimension.o KNN_Classifiers.o KNN_Matrix.o KNN_Distance.o KNN_FileManager.o -lm -g -O2 && make clean;
 
 KNN_FileManager.o: sources/KNN_FileManager.c headers/KNN_FileManager.h
 	gcc -c sources/KNN_FileManager.c headers/KNN_FileManager.h
