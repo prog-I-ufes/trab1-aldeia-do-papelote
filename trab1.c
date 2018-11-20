@@ -1,33 +1,52 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "headers/KNN_Classifiers.h"
 #include "headers/KNN_Dimension.h"
 #include "headers/KNN_Distance.h"
 #include "headers/KNN_FileManager.h"
 #include "headers/KNN_Matrix.h"
 #include "headers/KNN_Vector.h"
-#include <stdlib.h>
-#include <stdio.h>
 
-void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data* test_content){
-    int k = 0;
+void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data* test_content, char *path_result){
+    // Variaveis de controle de loops
 	int i = 0;
 	int j = 0;
+	int k = 0;
 
-	int vet_len = 0;
-
-	int correct = 0;
-
-	int test_rotule = 0;
-	int *knn_rotule;
-	int *index;
+	int vet_len = 0; // tamanho horizontal do vetor
+	int correct = 0; // corretas da acuracia
 
 	float acuracia = 0;
 
-	double **m_test = splitNumbers(test_content, &vet_len);
-	double **m_train = splitNumbers(training_content, &vet_len);
-	
-	double *dist = create_F_Vector(training_content->map.lines);
+	int test_rotule = 0; // auxiliar para guardar o rotulo do teste atual
+	int *knn_rotule; // vetor de k rotulos mais proximos
+	int *index; // vetor de controle de indices
 
-    for( k = 0 ; k < commands->map.lines - 1 ; k++ ){
+	// Variaveis que guardam quantos tipos de rotulos existem
+	// para o teste e para o treino
+	
+	double **m_test = splitNumbers(test_content, &vet_len); // matriz de teste
+	double **m_train = splitNumbers(training_content, &vet_len); // matriz de treino
+	
+	int distinct_test = distinctRotules(m_test, test_content->map.lines, vet_len);
+	int distinct_train = distinctRotules(m_train, training_content->map.lines, vet_len);
+
+	double *dist = create_F_Vector(training_content->map.lines); // vetor de distancias
+
+	// Variveis para escrever as predicoes apos rodar o algoritmo
+	Tcsv_map content_map;
+	content_map.lines = distinct_test + 4 + test_content->map.lines;
+	content_map.length_line = malloc( sizeof(int) * content_map.lines );
+	for( i = 2 ; i < distinct_test ; i++ ){
+		content_map.length_line[i] = (distinct_train * 2) + 1;
+	}
+	char **content = create_R_CharacterMatrix(content_map);
+	char* path_result_f;
+
+	// Algoritmo de KNN
+	for( k = 0 ; k < commands->map.lines - 1 ; k++ ){
 		index = create_I_Vector(commands->data[k].k);
 		knn_rotule = create_I_Vector(commands->data[k].k);
 
@@ -66,27 +85,32 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 
 			if( recorrence(knn_rotule, commands->data[k].k) == test_rotule )
 				correct++;
+
+			content[3 + distinct_test + i][0] = i + 48;
 		}
+		content[i][0] = ' ';
+
+		char snum[6];
+		
+
+		//writeInFile(path_result_f, content, content_map.lines);
 
 		acuracia = Accuracy(correct, test_content->map.lines);
 		printf("acuracia: %f\n", acuracia);
-		
-		
-		
-		
-    
+		    
 		free(index);
 		free(knn_rotule);
 	}
 
 	freedoubleMatrix(m_test, test_content->map.lines);
 	freedoubleMatrix(m_train, training_content->map.lines);
+	
+	freeCharacterMatrix(content, content_map.lines);
 
 	free(dist);
-	
+	free(content_map.length_line);	
 	
     printf("\n");
-
 }
 
 int main(void){
@@ -112,7 +136,7 @@ int main(void){
     training_content = readFileToMatrix(training_path);
     test_content = readFileToMatrix(test_path);
 
-    runCommands(commands, training_content, test_content);
+    runCommands(commands, training_content, test_content, predicts_path);
 
     free(training_path);
     free(test_path);

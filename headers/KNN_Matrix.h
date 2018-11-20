@@ -2,6 +2,10 @@
 #define _H_MATRIX
 
 #include "KNN_Dimension.h"
+#include "KNN_Vector.h"
+
+// Procura quantos rotulos distintos estão presentes numa matriz
+int distinctRotules(double **m, int lines, int rows);
 
 // Aloca uma matriz de inteiros dinamicamente
 int **createMatrix(TDimension dim);

@@ -24,4 +24,7 @@ Tcommand_data* readInstructions(char* path);
 // Omite n linhas da leitura de um arquivo
 void omitLines(FILE* f, int n);
 
+// Escreve uma matriz de caracteres em um arquivo
+void writeInFile(char *path, char **content, int lines);
+
 #endif

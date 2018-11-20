@@ -178,3 +178,15 @@ void omitLines(FILE* f, int n){
 		free(word);
 	}
 }
+
+// Escreve uma matriz de caracteres em um arquivo
+void writeInFile(char *path, char **content, int lines){
+	int i = 0;
+	FILE* f = openFile(path, 'w');
+
+	for( i = 0 ; i < lines ; i++ ){
+		fprintf(f, "%s\n", content[i]);
+	}
+
+	closeFile(f);
+}

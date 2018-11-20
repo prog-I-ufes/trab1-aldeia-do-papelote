@@ -1,6 +1,8 @@
 #ifndef _H_DIMENSION
 #define _H_DIMENSION
 
+
+
 // Estrutura de dimensao X e Y
 typedef struct Dimension{
 	int x;

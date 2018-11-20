@@ -3,6 +3,32 @@
 #include <string.h>
 #include <stdio.h>
 
+// Procura quantos rotulos distintos estão presentes numa matriz
+int distinctRotules(double **m, int lines, int rows){
+	int i = 0;
+	int j = 0;
+
+	int distinct = 0;
+	int control = 1;
+
+	int *vet = create_I_Vector(lines);
+
+	for( i = 0 ; i < lines ; i++ ){
+		for( j = 0 ; j < distinct ; j++ ){
+			if(vet[j] == m[i][rows - 1]){
+				control = 0;
+				break;
+			}
+		}
+		if(control){			
+			vet[distinct] = m[i][rows - 1];
+			distinct++;
+		} else control = 1;
+	}
+
+	return distinct;
+}
+
 // Aloca uma matriz de inteiros dinamicamente
 int **createMatrix(TDimension dim){
 	int i = 0;
