@@ -37,12 +37,15 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 
 	// Variveis para escrever as predicoes apos rodar o algoritmo
 	Tcsv_map content_map;
-	content_map.lines = distinct_test + 4 + test_content->map.lines;
+	content_map.lines = distinct_test + 3 + test_content->map.lines;
 	content_map.length_line = malloc( sizeof(int) * content_map.lines );
 	for( i = 2 ; i < distinct_test ; i++ ){
 		content_map.length_line[i] = (distinct_train * 2) + 1;
 	}
 	char **content = create_R_CharacterMatrix(content_map);
+	for( i = 0 ; i < content_map.lines ; i++){
+		strcpy(content[i], "");
+	}
 	char* path_result_f;
 
 	// Algoritmo de KNN
@@ -86,19 +89,44 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 			if( recorrence(knn_rotule, commands->data[k].k) == test_rotule )
 				correct++;
 
-			content[3 + distinct_test + i][0] = i + 48;
+			content[3 + distinct_test + i][0] = recorrence(knn_rotule, commands->data[k].k) + 47;
 		}
-		content[i][0] = ' ';
 
-		char snum[6];
-		
+		char *snum = (char*) malloc(sizeof(char)*6);
+		sprintf(snum, "%d", k + 1);
 
-		//writeInFile(path_result_f, content, content_map.lines);
+		path_result_f = (char*) malloc(sizeof(char) * (strlen(path_result) * 50));
+
+		strcat(path_result_f, path_result);
+		strcat(path_result_f, "predicao_");
+		strcat(path_result_f, snum);
+
+		free(snum);
+
+		snum = (char*) malloc(sizeof(char)*6);
 
 		acuracia = Accuracy(correct, test_content->map.lines);
-		printf("acuracia: %f\n", acuracia);
-		    
-		free(index);
+		
+		char *snum2 = (char*) malloc(sizeof(char) * 3);
+
+		int ac = acuracia*100;
+
+		sprintf(snum2, "%d", ac);
+
+		strcpy(snum, "0.");
+		strcat(snum, snum2);
+		strcpy(content[0], snum);
+
+		printf("%s\n", snum);
+
+		free(snum);
+		free(snum2);
+		//strcat(content[0], snum);
+		
+		writeInFile(path_result_f, content, content_map.lines);
+
+		free(path_result_f);
+    	free(index);
 		free(knn_rotule);
 	}
 
