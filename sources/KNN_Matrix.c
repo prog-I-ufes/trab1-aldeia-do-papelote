@@ -26,16 +26,18 @@ int distinctRotules(double **m, int lines, int rows){
 		} else control = 1;
 	}
 
+	free(vet);
+
 	return distinct;
 }
 
 // Aloca uma matriz de inteiros dinamicamente
 int **createMatrix(TDimension dim){
 	int i = 0;
-	int **mat = (int**) malloc(sizeof(int*) * dim.x);
+	int **mat = (int**) calloc(sizeof(int*), dim.x);
 
 	for( i = 0 ; i < dim.x ; i++ ){
-		mat[i] = (int*) malloc(sizeof(int) * dim.y);
+		mat[i] = (int*) calloc(sizeof(int), dim.y);
 	}
 
 	return mat;
@@ -158,14 +160,15 @@ double **splitNumbers(Tcsv_data *csv, int *counter){
 Tcommand splitCommands(char* word){
 	Tcommand command;
 	command.r = 0;
+		
 	char* pch;
 	
 	pch = strtok (word,", ");
 	command.k = atoi(pch);
 	pch = strtok (NULL, ", ");
 	command.distance = pch[0];
-	if(pch != NULL) pch = strtok (NULL, ", ");
+	pch = strtok (NULL, ", ");
 	if(pch != NULL)	command.r = atof(pch);
-	
+
 	return command;
 }

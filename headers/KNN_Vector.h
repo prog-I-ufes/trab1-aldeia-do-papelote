@@ -81,6 +81,6 @@ double sum_Elements_F_Vector(double *v, int len);
 double max_F_Vector(double *v, int len);
 
 // Aloca um vetor de double com os K maiores elementos
-double* kMinors(double* dist, int len, int k, int* index);
+void kMinors(double* dist, int len, int k, int* index);
 
 #endif
