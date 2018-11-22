@@ -26,20 +26,19 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 
 	// Variaveis que guardam quantos tipos de rotulos existem
 	// para o teste e para o treino
-	
+
 	double **m_test = splitNumbers(test_content, &vet_len); // matriz de teste
 	double **m_train = splitNumbers(training_content, &vet_len); // matriz de treino
-	
-	int distinct_test = distinctRotules(m_test, test_content->map.lines, vet_len);
+
 	int distinct_train = distinctRotules(m_train, training_content->map.lines, vet_len);
 
 	double *dist = create_F_Vector(training_content->map.lines); // vetor de distancias
 
-	// Variveis para escrever as predicoes apos rodar o algoritmo
+	// Variveis para escrever as predicoes (saida) apos rodar o algoritmo
 	Tcsv_map content_map;
-	content_map.lines = distinct_test + 3 + test_content->map.lines;
+	content_map.lines = distinct_train + 3 + test_content->map.lines;
 	content_map.length_line = malloc( sizeof(int) * content_map.lines );
-	for( i = 2 ; i < distinct_test ; i++ ){
+	for( i = 2 ; i < distinct_train ; i++ ){
 		content_map.length_line[i] = (distinct_train * 2) + 1;
 	}
 	char **content = create_R_CharacterMatrix(content_map);
@@ -55,8 +54,8 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 
 		printf("Command: %d, %c, %.2f\n", commands->data[k].k, commands->data[k].distance, commands->data[k].r);
 		correct = 0;
-                    
-        for( i = 0 ; i < test_content->map.lines ; i++ ){
+
+        	for( i = 0 ; i < test_content->map.lines ; i++ ){
 			// SALVA O ROTULO DE TESTE REAL
 			test_rotule = m_test[i][vet_len - 1];
 
@@ -81,7 +80,7 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 			}
 
 			kMinors(dist, training_content->map.lines, commands->data[k].k, index);
-			
+
 			for( j = 0 ; j < commands->data[k].k ; j++){
 				knn_rotule[j] = m_train[index[j]][vet_len - 1];
 			}
@@ -89,55 +88,23 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 			if( recorrence(knn_rotule, commands->data[k].k) == test_rotule )
 				correct++;
 
-			content[3 + distinct_test + i][0] = recorrence(knn_rotule, commands->data[k].k) + 47;
+			//content[3 + distinct_train + i][0] = recorrence(knn_rotule, commands->data[k].k) + 47;
 		}
 
-		char *snum = (char*) malloc(sizeof(char)*6);
-		sprintf(snum, "%d", k + 1);
+		//writeInFile(k, content, content_map.lines);
 
-		path_result_f = (char*) malloc(sizeof(char) * (strlen(path_result) * 50));
-
-		strcat(path_result_f, path_result);
-		strcat(path_result_f, "predicao_");
-		strcat(path_result_f, snum);
-
-		free(snum);
-
-		snum = (char*) malloc(sizeof(char)*6);
-
-		acuracia = Accuracy(correct, test_content->map.lines);
-		
-		char *snum2 = (char*) malloc(sizeof(char) * 3);
-
-		int ac = acuracia*100;
-
-		sprintf(snum2, "%d", ac);
-
-		strcpy(snum, "0.");
-		strcat(snum, snum2);
-		strcpy(content[0], snum);
-
-		printf("%s\n", snum);
-
-		free(snum);
-		free(snum2);
-		//strcat(content[0], snum);
-		
-		writeInFile(path_result_f, content, content_map.lines);
-
-		free(path_result_f);
-    	free(index);
+    		free(index);
 		free(knn_rotule);
 	}
 
 	freedoubleMatrix(m_test, test_content->map.lines);
 	freedoubleMatrix(m_train, training_content->map.lines);
-	
+
 	freeCharacterMatrix(content, content_map.lines);
 
 	free(dist);
-	free(content_map.length_line);	
-	
+	free(content_map.length_line);
+
     printf("\n");
 }
 
