@@ -57,10 +57,10 @@ char **createCharacterMatrix(TDimension dim){
 // com linhas de tamanho variado
 char **create_R_CharacterMatrix(Tcsv_map map){
 	int i = 0;
-	char **mat = (char**) malloc(sizeof(char*) * map.lines);
+	char **mat = (char**) calloc(sizeof(char*), map.lines);
 
 	for( i = 0 ; i < map.lines; i++ ){
-		mat[i] = (char*) malloc(sizeof(char) * (map.length_line[i]));
+		mat[i] = (char*) calloc(sizeof(char), (map.length_line[i]));
 	}
 
 	return mat;
@@ -164,7 +164,7 @@ Tcommand splitCommands(char* word){
 	command.k = atoi(pch);
 	pch = strtok (NULL, ", ");
 	command.distance = pch[0];
-	pch = strtok (NULL, ", ");
+	if(pch != NULL) pch = strtok (NULL, ", ");
 	if(pch != NULL)	command.r = atof(pch);
 	
 	return command;
