@@ -26,10 +26,10 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 
 	// Variaveis que guardam quantos tipos de rotulos existem
 	// para o teste e para o treino
-	
+
 	double **m_test = splitNumbers(test_content, &vet_len); // matriz de teste
 	double **m_train = splitNumbers(training_content, &vet_len); // matriz de treino
-	
+
 	int distinct_test = distinctRotules(m_test, test_content->map.lines, vet_len);
 	int distinct_train = distinctRotules(m_train, training_content->map.lines, vet_len);
 
