@@ -1,5 +1,5 @@
-vowels/dataset/vowels_treino.csv
-vowels/dataset/vowels_teste.csv
+iris/dataset/iris_treino.csv
+iris/dataset/iris_teste.csv
 predicts/
 11, C
 13, M, 0.5
