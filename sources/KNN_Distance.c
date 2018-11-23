@@ -38,11 +38,15 @@ double minkowskyDistance(double *v, double *w, int len, double r){
 	int i = 0;
 
 	for( i = 0 ; i < len ; i++ ){
-		aux = sqrt(pow(v[i] - w[i], 2));
+		// SUBTRACAO DE VETOR
+		aux = v[i] - w[i];
+		// VALOR ABSOLUTO
+		if( aux < 0 ) aux *= -1;
+		// SOMATORIO DAS DISTANCIAS
 		distance += pow(aux, r);
 	}
 	
-	distance = pow(distance, 1.0/r);
+	distance = pow(distance, 1/r);
 
 	return distance;
 }
