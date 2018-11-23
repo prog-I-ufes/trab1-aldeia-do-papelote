@@ -226,7 +226,7 @@ double max_F_Vector(double *v, int len){
 }
 
 // Aloca um vetor de double com os K maiores elementos
-double* kMinors(double* dist, int len, int k, int* index){
+void kMinors(double* dist, int len, int k, int* index){
 	int i = 0;
 	int j = 0;
 	int aux;
@@ -256,5 +256,6 @@ double* kMinors(double* dist, int len, int k, int* index){
 		index[i] = indexs[i];
 	}
 
-	return minor;
+	free(minor);
+
 }

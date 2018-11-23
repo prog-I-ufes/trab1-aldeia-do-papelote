@@ -184,6 +184,7 @@ void writeInFile(char *path, char **content, int lines){
 	int i = 0;
 	FILE* f = openFile(path, 'w');
 
+
 	for( i = 0 ; i < lines ; i++ ){
 		fprintf(f, "%s\n", content[i]);
 	}
