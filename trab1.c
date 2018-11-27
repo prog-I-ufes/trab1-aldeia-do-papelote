@@ -15,6 +15,8 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 	int j = 0;
 	int k = 0;
 
+	int recorrencia = 0;
+
 	int vet_len = 0; // tamanho horizontal do vetor
 	int correct = 0; // corretas da acuracia
 
@@ -47,11 +49,11 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 		strcpy(content[i], "\0");
 	}
 	char* path_result_f;
-	
+
 	TDimension confusion_dim;
 	confusion_dim.x = distinct_train;
 	confusion_dim.y = distinct_train;
-	
+
 	int** confusion = createMatrix(confusion_dim);
 
 
@@ -93,11 +95,13 @@ void runCommands(Tcommand_data* commands, Tcsv_data* training_content, Tcsv_data
 				knn_rotule[j] = m_train[index[j]][vet_len - 1];
 			}
 
-			if( recorrence(knn_rotule, commands->data[k].k) == test_rotule )
+			recorrencia = recorrence(knn_rotule, commands->data[k].k);
+
+			if( recorrencia == test_rotule )
 				correct++;
 
-			content[3 + distinct_train + i][0] = recorrence(knn_rotule, commands->data[k].k) + 47;
-			confusion[test_rotule - 1][recorrence(knn_rotule, commands->data[k].k) - 1] += 1; 
+			content[3 + distinct_train + i][0] = recorrencia + 47;
+			confusion[test_rotule - 1][recorrencia - 1] += 1;
 		}
 
 		path_result_f = (char*) calloc(sizeof(char), strlen(path_result) + 50);
